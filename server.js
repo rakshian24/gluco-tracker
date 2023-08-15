@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url';
 import connectDB from "./backend/database/db.js";
 import { notFound, errorHandler } from "./backend/middleware/errorMiddleware.js";
 import userRoutes from "./backend/routes/userRoutes.js";
+import glucoReadingRoutes from "./backend/routes/glucoReadingRoutes.js";
 dotenv.config({ path: "./.env" });
 
 connectDB();
@@ -29,6 +30,7 @@ if (NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/glucoseReading', glucoReadingRoutes);
 
 if (NODE_ENV === 'production') {
   app.use(express.static(path.resolve(__dirname, 'frontend', 'build')));
