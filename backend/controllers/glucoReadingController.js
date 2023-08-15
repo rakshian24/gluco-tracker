@@ -40,6 +40,22 @@ const createReading = asyncHandler(async (req, res) => {
   }
 });
 
+// description  Get all the glucose readings of a loggedIn user.
+// route        GET /api/v1/glucoseReading
+// access       Private
+const getAllReadings = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    const readings = await GlucoReading.find({ userId: user._id });
+    res.status(200).json(readings);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
 export {
-  createReading
+  createReading,
+  getAllReadings
 }
