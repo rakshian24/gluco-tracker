@@ -1,12 +1,21 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
+import { AppError } from "../utils/index.js";
 
 // description  SignIn user and set token
 // route        POST /api/v1/users/signIn
 // access       Public
 const signInUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+
+  if(!email){
+    throw new AppError('Email is required!');
+  }
+
+  if(!password){
+    throw new AppError('Password is required!');
+  }
 
   const user = await User.findOne({ email });
 
@@ -20,7 +29,7 @@ const signInUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Invalid email or password');
+    throw new AppError('Invalid email or password');
   }
 });
 
@@ -28,19 +37,20 @@ const signInUser = asyncHandler(async (req, res) => {
 // route        POST /api/v1/users
 // access       Public
 const signUpUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, confirmPassword } = req.body;
 
   const userExists = await User.findOne({ email });
 
   if (userExists) {
     res.status(400);
-    throw new Error('User already exists');
+    throw new AppError('User already exists');
   }
 
   const user = await User.create({
     name,
     email,
     password,
+    confirmPassword
   });
 
   if (user) {
@@ -52,7 +62,7 @@ const signUpUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new AppError('Invalid user data');
   }
 });
 
@@ -80,7 +90,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new AppError('User not found');
   }
 });
 
@@ -103,7 +113,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new AppError('User not found');
   }
 });
 
