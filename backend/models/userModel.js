@@ -1,20 +1,34 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import validator from 'validator';
 
 const userSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, 'Name is required!'],
     },
     email: {
       type: String,
-      required: true,
+      required: [true, 'Email is required!'],
       unique: true,
+      lowercase: true,
+      validate: [validator.isEmail, "Please enter a valid email"],
     },
     password: {
       type: String,
-      required: true,
+      required: [true, 'Password is required!'],
+      minLength: [5, "Password is shorter than the minimum length(5)"],
+    },
+    confirmPassword: {
+      type: String,
+      required: [true, "Please confirm your password!"],
+      validate: {
+        validator: function (val) {
+          return val === this.password;
+        },
+        message: "Passwords don't match",
+      },
     },
   },
   {
@@ -30,6 +44,7 @@ userSchema.pre('save', async function (next) {
 
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
+  this.confirmPassword = undefined;
 });
 
 // Match user entered password to the hashed password in DB

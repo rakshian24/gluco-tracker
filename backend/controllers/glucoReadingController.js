@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 
 import User from "../models/userModel.js";
 import GlucoReading from "../models/glucoReadingModel.js";
-import { getFormattedTimeStamp } from "../utils/index.js";
+import { AppError, getFormattedTimeStamp } from "../utils/index.js";
 
 // description  Adding glucose reading data
 // route        POST /api/v1/glucoseReading
@@ -36,7 +36,7 @@ const createReading = asyncHandler(async (req, res) => {
 
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new AppError('User not found');
   }
 });
 
@@ -51,7 +51,7 @@ const getAllReadings = asyncHandler(async (req, res) => {
     res.status(200).json(readings);
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new AppError('User not found');
   }
 });
 
