@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <StyledHeader>
-      <Logo title="Auth App" />
+      <Logo title="Gluco Tracker" />
       <HeaderRightContainer>
         {userInfo && pathname !== '/reading/create' && <Button
           buttontype={ADD}
