@@ -2,6 +2,17 @@ import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BUTTON_TYPE, colors } from '../../constants';
+
+const { lightBlueGrey,
+  primaryBlue,
+  white,
+  primaryGreen,
+  lightOrange,
+  darkOrange,
+  lightPrimaryBlue } = colors;
+
+const { ADD, REMOVE } = BUTTON_TYPE;
 
 export const FormHeading = styled.h1`
   font-weight: 400;
@@ -133,5 +144,70 @@ export const StyledToastContainer = styled(ToastContainer)`
     @media screen and (min-width: 501px){
       margin-top: 6rem;
     }
+  }
+`;
+
+export const Button = styled.button`
+  cursor: pointer;
+  outline: none;
+  border: 1px solid ${lightBlueGrey};
+  background: ${({ buttontype }) => {
+    switch (buttontype) {
+      case 'primary':
+        return lightPrimaryBlue;
+      case ADD:
+        return white;
+      case REMOVE:
+        return lightOrange;
+      default:
+        return lightPrimaryBlue;
+    }
+  }};
+  color: ${({ buttontype }) => {
+    switch (buttontype) {
+      case 'primary':
+        return white;
+      case ADD:
+        return primaryGreen;
+      case REMOVE:
+        return white
+      default:
+        return white
+    }
+  }};
+  font-weight: 700;
+  border-radius: 7px;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  padding: 3px 11px;
+  font-size: 16px;
+
+  &:hover{
+    background: ${({ buttontype }) => {
+    switch (buttontype) {
+      case 'primary':
+        return primaryBlue;
+      case ADD:
+        return white;
+      case REMOVE:
+        return darkOrange;
+      default:
+        return primaryBlue;
+    }
+  }};
+  }
+
+  &:disabled{
+    background-color: #eee;
+    opacity: 0.6;
+    color: ${primaryGreen}
+  }
+
+  @media screen and (min-width: 501px) and (max-width: 1024px){
+    font-size: 20px;
+  }
+
+  @media screen and (min-width: 1025px){
+    padding: 5px 10px;
+    font-size: 20px;
   }
 `;

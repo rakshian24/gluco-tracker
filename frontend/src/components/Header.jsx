@@ -1,9 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import Logo from './Logo';
 import BlueDot from './BlueDot';
+import { BUTTON_TYPE } from '../constants';
+import { Button } from '../common/styled-components';
 
 const StyledHeader = styled.header`
   padding: 1.5rem 2rem;
@@ -15,12 +18,30 @@ const StyledHeader = styled.header`
   position: sticky;
 `;
 
+const HeaderRightContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
+  const { ADD } = BUTTON_TYPE;
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
   return (
     <StyledHeader>
       <Logo title="Auth App" />
-      {userInfo && <BlueDot userInfo={userInfo} />}
+      <HeaderRightContainer>
+        {userInfo && pathname !== '/reading/create' && <Button
+          buttontype={ADD}
+          onClick={() => navigate('/reading/create')}
+        >
+          Create Reading
+        </Button>}
+        {userInfo && <BlueDot userInfo={userInfo} />}
+      </HeaderRightContainer>
     </StyledHeader>
   )
 }

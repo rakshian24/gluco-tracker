@@ -11,6 +11,7 @@ import { StyledToastContainer } from './common/styled-components';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/profile/Profile';
 import PageNotFound from './pages/pageNotFound/PageNotFound';
+import CreateGlucoseReading from './pages/glucoseReading/components/CreateGlucoseReading';
 
 const AppWrapper = styled.div`
   height: 100vh;
@@ -43,6 +44,7 @@ const App = () => {
           <Route path='' element={<ProtectedRoute />}>
             <Route element={<Dashboard />} path='dashboard' />
             <Route element={<Profile />} path='profile' />
+            <Route element={<CreateGlucoseReading />} path='/reading/create' />
           </Route>
           <Route path='*' element={<PageNotFound />} />
         </Routes>
