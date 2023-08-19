@@ -34,7 +34,7 @@ const CreateGlucoseReading = () => {
   return (
     <div>
       <PageTitle>
-        Create Reading
+        Add Reading
       </PageTitle>
       <form onSubmit={handleSubmit}>
         <FormItem id="type">

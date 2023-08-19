@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 
 const LogoTitle = styled.div`
   font-size: 3rem;
-  color: #0077c5;
+  color: #4ab9a4;
 `;
 
 const Logo = ({ title }) => {

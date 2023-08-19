@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 const StyledAvatar = styled.div([], props => ({
   display: 'flex',
   borderRadius: '50%',
-  background: '#0077c5',
+  background: 'linear-gradient(175deg, rgba(74,185,164,1) 34%, rgba(49,171,192,1) 92%)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
