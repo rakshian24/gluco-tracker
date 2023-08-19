@@ -1,15 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { DashboardContainer, DashboardTitle } from './styles';
+import { DashboardContainer } from './styles';
+import { PageTitle } from '../../common/styled-components';
 
 const Dashboard = () => {
   const { userInfo } = useSelector((state) => state.auth);
 
   return (
     <DashboardContainer>
-      <DashboardTitle>
+      <PageTitle>
         Welcome, {userInfo?.name}!
-      </DashboardTitle>
+      </PageTitle>
     </DashboardContainer>
   )
 }

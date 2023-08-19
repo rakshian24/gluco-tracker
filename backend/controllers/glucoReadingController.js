@@ -11,14 +11,19 @@ const createReading = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    const { type, reading, consumedFoods, description, isExercised } = req.body;
+    const { 
+      type, 
+      reading, 
+      // consumedFoods, 
+      description, 
+      isExercised } = req.body;
 
     //TODO: add logic to add only one value (BB, AB, BL, AL, BD, AD) for the day;
 
     const newReading = await GlucoReading.create({
       type,
       reading,
-      consumedFoods,
+      // consumedFoods,
       description,
       isExercised,
       userId: user._id
@@ -28,7 +33,7 @@ const createReading = asyncHandler(async (req, res) => {
       data: {
         _id: newReading._id,
         reading: newReading.reading,
-        consumedFoods: newReading.consumedFoods,
+        // consumedFoods: newReading.consumedFoods,
         description: newReading.description,
         isExercised: newReading.isExercised,
         userId: newReading.userId,

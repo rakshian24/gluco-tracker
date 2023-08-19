@@ -11,7 +11,7 @@ import { StyledToastContainer } from './common/styled-components';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/profile/Profile';
 import PageNotFound from './pages/pageNotFound/PageNotFound';
-import CreateGlucoseReading from './pages/glucoseReading/components/CreateGlucoseReading';
+import CreateGlucoseReading from './pages/glucoseReading/components/create/CreateGlucoseReading';
 
 const AppWrapper = styled.div`
   height: 100vh;
