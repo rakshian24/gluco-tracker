@@ -22,7 +22,12 @@ const userSchema = mongoose.Schema(
     },
     confirmPassword: {
       type: String,
-      required: [true, "Please confirm your password!"],
+      required: function () {
+        if (!this.isModified('password')) {
+          return false
+        }
+        return [true, "Please confirm your password!"]
+      },
       validate: {
         validator: function (val) {
           return val === this.password;

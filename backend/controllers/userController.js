@@ -9,12 +9,17 @@ import { AppError } from "../utils/index.js";
 const signInUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  if(!email){
-    throw new AppError('Email is required!');
-  }
+  if (!email || !password) {
+    let message = {};
 
-  if(!password){
-    throw new AppError('Password is required!');
+    if (!email) {
+      message.email = "Email is required!";
+    }
+
+    if (!password) {
+      message.password = "Password id required!";
+    }
+    throw new AppError(JSON.stringify(message), 400);
   }
 
   const user = await User.findOne({ email });
@@ -23,13 +28,14 @@ const signInUser = asyncHandler(async (req, res) => {
     generateToken(res, user._id);
 
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      }
     });
   } else {
-    res.status(401);
-    throw new AppError('Invalid email or password');
+    throw new AppError('Invalid email or password', 401);
   }
 });
 
@@ -42,8 +48,7 @@ const signUpUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    res.status(400);
-    throw new AppError('User already exists');
+    throw new AppError('User already exists', 400);
   }
 
   const user = await User.create({
@@ -56,13 +61,14 @@ const signUpUser = asyncHandler(async (req, res) => {
   if (user) {
     generateToken(res, user._id);
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      }
     });
   } else {
-    res.status(400);
-    throw new AppError('Invalid user data');
+    throw new AppError('Invalid user data', 400);
   }
 });
 
@@ -84,13 +90,14 @@ const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
   if (user) {
     res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+      data: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      }
     });
   } else {
-    res.status(404);
-    throw new AppError('User not found');
+    throw new AppError('User not found', 404);
   }
 });
 
@@ -107,13 +114,14 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     const updatedUser = await user.save();
 
     res.status(200).json({
-      _id: updatedUser._id,
-      name: updatedUser.name,
-      email: updatedUser.email,
+      data: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+      }
     });
   } else {
-    res.status(404);
-    throw new AppError('User not found');
+    throw new AppError('User not found', 404);
   }
 });
 

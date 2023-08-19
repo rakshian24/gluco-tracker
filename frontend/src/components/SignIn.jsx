@@ -19,9 +19,14 @@ const SignIn = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [signIn, { isLoading }] = useSignInMutation();
-
   const { userInfo } = useSelector((state) => state.auth);
+  const [signIn, { isLoading, error: { data: { message: errorMessageObject = {} } = {} } = {} }] = useSignInMutation();
+
+  useEffect(() => {
+    if (errorMessageObject && Object.keys(errorMessageObject).length > 0) {
+      setFormError(errorMessageObject);
+    }
+  }, [errorMessageObject]);
 
   useEffect(() => {
     if (userInfo) {
@@ -31,7 +36,6 @@ const SignIn = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setFormError(handleValidation());
     try {
       const res = await signIn({ ...formFields }).unwrap();
       dispatch(setCredentials({ ...res }));
@@ -40,19 +44,6 @@ const SignIn = () => {
       toast.error(err?.data?.message || err.error);
     }
   };
-
-  const handleValidation = () => {
-    let error = {};
-
-    if (!formFields.email) {
-      error.email = 'Email is required';
-    }
-    if (!formFields.password) {
-      error.password = 'Password is required';
-    }
-
-    return error;
-  }
 
   const hanldeInputValueChange = (event) => {
     const { name, value } = event.target;

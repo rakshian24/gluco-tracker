@@ -21,10 +21,14 @@ const SignUp = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [register, { isLoading }] = useSignUpMutation();
-
   const { userInfo } = useSelector((state) => state.auth);
+  const [register, { isLoading, error: { data: { message: errorMessageObject = {} } = {} } = {} }] = useSignUpMutation();
+
+  useEffect(() => {
+    if (errorMessageObject && Object.keys(errorMessageObject).length > 0) {
+      setFormError(errorMessageObject);
+    }
+  }, [errorMessageObject])
 
   useEffect(() => {
     if (userInfo) {
@@ -34,41 +38,14 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setFormError(handleValidation());
-
-    const { password, confirmPassword } = formFields;
-
-    if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
-    } else {
-      try {
-        const res = await register({ ...formFields }).unwrap();
-        dispatch(setCredentials({ ...res }));
-        navigate('/dashboard');
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
-      }
+    try {
+      const res = await register({ ...formFields }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      navigate('/dashboard');
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
     }
   };
-
-  const handleValidation = () => {
-    let error = {};
-
-    if (!formFields.name) {
-      error.name = 'Name is required';
-    }
-    if (!formFields.email) {
-      error.email = 'Email is required';
-    }
-    if (!formFields.password) {
-      error.password = 'Password is required';
-    }
-    if (!formFields.confirmPassword) {
-      error.confirmPassword = 'Confirm password is required';
-    }
-
-    return error;
-  }
 
   const hanldeInputValueChange = (event) => {
     const { name, value } = event.target;
