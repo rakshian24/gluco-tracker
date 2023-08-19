@@ -12,7 +12,7 @@
     "prod": "concurrently \"npm run server:prod\" \"npm run client\"",
     "start": "node server.js"
   },
-  "author": "",
+  "author": "Rakshith Sindhiya R",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
