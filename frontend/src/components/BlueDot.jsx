@@ -90,7 +90,7 @@ const BlueDot = ({ userInfo }) => {
   }
 
   return (
-    <>
+    <div style={{ marginLeft: "2rem" }}>
       <Avatar handleOnClick={() => handleBlueDotClick()} />
       {isBlueDotClicked && userInfo && <BlueDotDropDownContainer>
         <Avatar size={'lg'} />
@@ -103,7 +103,7 @@ const BlueDot = ({ userInfo }) => {
           Sign out
         </SignOutButton>
       </BlueDotDropDownContainer>}
-    </>
+    </div>
   )
 }
 

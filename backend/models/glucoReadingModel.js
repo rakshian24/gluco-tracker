@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
-const typeForMakingConsumedFoodsRequired = ['AB', 'AL', 'AD']
+const typeForMakingConsumedFoodsRequired = ['AB', 'AL', 'AD'];
+const typeForMakingIsMedsTakenRequired = ['AB', 'AD'];
 
 const glucoReadingSchema = mongoose.Schema(
   {
@@ -18,15 +19,36 @@ const glucoReadingSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    isMedsTaken: {
+      type: Boolean,
+      required: function () {
+        if (typeForMakingIsMedsTakenRequired.includes(this.type)) {
+          return [true, 'Have you taken your pills yet?']
+        } else {
+          return false
+        }
+      }
+    },
     consumedFoods: {
       type: [String],
-      required: function () {
-        return typeForMakingConsumedFoodsRequired.includes(this.type)
+      validate: {
+        validator: function (consumedFoodsVal) {
+          if (typeForMakingConsumedFoodsRequired.includes(this.type)) {
+            if (consumedFoodsVal && consumedFoodsVal.length > 0) {
+              return true
+            } else {
+              return false
+            }
+          } else {
+            return true
+          }
+        },
+        message: 'Please provide the food consumed!'
       }
     },
     description: {
       type: String,
-      max: 100
+      maxLength: [100, "Description is longer than the max length(100)"],
     },
     isExercised: {
       type: Boolean,
