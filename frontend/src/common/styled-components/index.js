@@ -55,6 +55,12 @@ export const FormItem = styled.div`
       outline: none !important;
       border: 1.5px solid #6650ef;
     }
+
+    &[type="checkbox"]{
+      width: 2rem;
+      height: 2rem;
+      margin-right: 1rem;
+    }
   }
   
   label{
@@ -66,6 +72,15 @@ export const FormItem = styled.div`
     @media screen and (min-width: 501px){
       font-size: 1.8rem;
     }
+  }
+`;
+
+export const CheckboxLabel = styled.div`
+  display: flex;
+  align-items: center;
+
+  span {
+    font-size: 1.65rem;
   }
 `;
 
@@ -209,5 +224,33 @@ export const Button = styled.button`
   @media screen and (min-width: 1025px){
     padding: 5px 10px;
     font-size: 20px;
+  }
+`;
+
+export const PageTitle = styled.h1`
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 3rem;
+  
+  @media screen and (min-width: 501px) and (max-width: 1023px){
+    font-size: 3rem;
+  }
+
+  @media screen and (min-width: 1024px){
+    font-size: 4rem;
+  }
+`;
+
+export const TextArea = styled.textarea`
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid #8498e2;
+  font-size: 1.65rem;
+  font-family: inherit;
+  margin-bottom: 1.5rem;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #8498e2;
   }
 `;

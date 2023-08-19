@@ -29,23 +29,24 @@ const glucoReadingSchema = mongoose.Schema(
         }
       }
     },
-    consumedFoods: {
-      type: [String],
-      validate: {
-        validator: function (consumedFoodsVal) {
-          if (typeForMakingConsumedFoodsRequired.includes(this.type)) {
-            if (consumedFoodsVal && consumedFoodsVal.length > 0) {
-              return true
-            } else {
-              return false
-            }
-          } else {
-            return true
-          }
-        },
-        message: 'Please provide the food consumed!'
-      }
-    },
+    // TODO: will be looked at this later
+    // consumedFoods: {
+    //   type: [String],
+    //   validate: {
+    //     validator: function (consumedFoodsVal) {
+    //       if (typeForMakingConsumedFoodsRequired.includes(this.type)) {
+    //         if (consumedFoodsVal && consumedFoodsVal.length > 0) {
+    //           return true
+    //         } else {
+    //           return false
+    //         }
+    //       } else {
+    //         return true
+    //       }
+    //     },
+    //     message: 'Please provide the food consumed!'
+    //   }
+    // },
     description: {
       type: String,
       maxLength: [100, "Description is longer than the max length(100)"],
