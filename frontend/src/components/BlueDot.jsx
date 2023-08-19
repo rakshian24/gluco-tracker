@@ -18,16 +18,21 @@ const BlueDotContainer = styled.div`
 const BlueDotDropDownContainer = styled.div`
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  height: auto;
+  height: calc(100vh - 6.5rem);
   z-index: 99999;
   position: absolute;
-  top: 6.4rem;
+  top: 0;
   right: 0;
   background: #ffffff;
   padding: 2rem 1.5rem;
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  @media screen and (min-width: 501px){
+    top: 6.4rem;
+    height: auto;
+  }
 
   @media screen and (min-width: 1024px){
     width: 38rem;

@@ -231,6 +231,7 @@ export const PageTitle = styled.h1`
   font-size: 2.5rem;
   font-weight: 400;
   margin-bottom: 3rem;
+  color: #4ab9a4;
   
   @media screen and (min-width: 501px) and (max-width: 1023px){
     font-size: 3rem;
