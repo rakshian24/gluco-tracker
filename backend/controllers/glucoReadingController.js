@@ -25,18 +25,19 @@ const createReading = asyncHandler(async (req, res) => {
     });
 
     res.status(201).json({
-      _id: newReading._id,
-      reading: newReading.reading,
-      consumedFoods: newReading.consumedFoods,
-      description: newReading.description,
-      isExercised: newReading.isExercised,
-      userId: newReading.userId,
-      createdAt: getFormattedTimeStamp(newReading.createdAt)
+      data: {
+        _id: newReading._id,
+        reading: newReading.reading,
+        consumedFoods: newReading.consumedFoods,
+        description: newReading.description,
+        isExercised: newReading.isExercised,
+        userId: newReading.userId,
+        createdAt: getFormattedTimeStamp(newReading.createdAt)
+      }
     })
 
   } else {
-    res.status(404);
-    throw new AppError('User not found');
+    throw new AppError('User not found', 404);
   }
 });
 
@@ -48,10 +49,13 @@ const getAllReadings = asyncHandler(async (req, res) => {
 
   if (user) {
     const readings = await GlucoReading.find({ userId: user._id });
-    res.status(200).json(readings);
+    res.status(200).json({
+      data: {
+        ...readings
+      }
+    });
   } else {
-    res.status(404);
-    throw new AppError('User not found');
+    throw new AppError('User not found', 404);
   }
 });
 

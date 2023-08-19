@@ -1,8 +1,7 @@
 import { AppError } from "../utils/index.js";
 
 const notFound = (req, res, next) => {
-  const error = new AppError(`Can't find the route - ${req.originalUrl}`);
-  res.status(404);
+  const error = new AppError(`Can't find the route - ${req.originalUrl}`, 404);
   next(error);
 };
 
