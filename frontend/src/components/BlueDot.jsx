@@ -8,6 +8,13 @@ import { Link } from 'react-router-dom';
 import { useSignOutMutation } from '../slices/userApiSlice';
 import { clearCredentials } from '../slices/authSlice';
 
+const BlueDotContainer = styled.div`
+  margin-left: 0;
+  @media screen and (min-width: 501px){
+    margin-left: 2rem;
+  }
+`;
+
 const BlueDotDropDownContainer = styled.div`
   width: 100%;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -90,7 +97,7 @@ const BlueDot = ({ userInfo }) => {
   }
 
   return (
-    <div style={{ marginLeft: "2rem" }}>
+    <BlueDotContainer>
       <Avatar handleOnClick={() => handleBlueDotClick()} />
       {isBlueDotClicked && userInfo && <BlueDotDropDownContainer>
         <Avatar size={'lg'} />
@@ -103,7 +110,7 @@ const BlueDot = ({ userInfo }) => {
           Sign out
         </SignOutButton>
       </BlueDotDropDownContainer>}
-    </div>
+    </BlueDotContainer>
   )
 }
 

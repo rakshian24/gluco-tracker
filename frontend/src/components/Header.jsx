@@ -38,7 +38,7 @@ const Header = () => {
           buttontype={ADD}
           onClick={() => navigate('/reading/create')}
         >
-          Create Reading
+          Add Reading
         </Button>}
         {userInfo && <BlueDot userInfo={userInfo} />}
       </HeaderRightContainer>

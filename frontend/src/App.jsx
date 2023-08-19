@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import Header from './components/Header';
 import SignUp from './components/SignUp';
@@ -12,13 +13,17 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/profile/Profile';
 import PageNotFound from './pages/pageNotFound/PageNotFound';
 import CreateGlucoseReading from './pages/glucoseReading/components/create/CreateGlucoseReading';
+import Footer from './components/footer/Footer';
+import { useWindowSize } from './hooks/useWindowResize';
 
 const AppWrapper = styled.div`
   height: 100vh;
+  min-height: 100vh; 
+  margin:0;
 `;
 
 const AppContainer = styled.div`
-  height: calc(100vh - 6rem);
+  height: calc(100vh - 6.5rem);
   overflow-y: scroll;
   padding: 2rem;
 
@@ -29,9 +34,13 @@ const AppContainer = styled.div`
 `;
 
 const App = () => {
+  const [screenWidth] = useWindowSize();
+  const isMobileScreen = screenWidth <= 500;
+  const { userInfo } = useSelector((state) => state.auth);
+  const hasUserInfo = userInfo && Object.keys(userInfo).length > 0;
   return (
     <AppWrapper>
-      <Header />
+      {!isMobileScreen && <Header />}
       <StyledToastContainer />
       <AppContainer>
         <Routes>
@@ -49,6 +58,7 @@ const App = () => {
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </AppContainer>
+      {isMobileScreen && hasUserInfo && < Footer />}
     </AppWrapper>
   )
 }
