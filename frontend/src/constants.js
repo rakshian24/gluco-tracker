@@ -1,5 +1,6 @@
 // API endpoints for resources
 export const USERS_URL = '/api/v1/users';
+export const READING_URL = '/api/v1/glucoseReading';
 
 export const BUTTON_TYPE = {
   ADD: 'ADD',

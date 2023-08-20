@@ -246,7 +246,7 @@ export const TextArea = styled.textarea`
   border: ${({ theme }) => `1px solid ${theme.textBoxBorderColor}`};
   font-size: 1.65rem;
   font-family: inherit;
-  margin-bottom: 1.5rem;
+  resize: none;
 
   &:focus {
     outline: none;

@@ -15,7 +15,8 @@ const createReading = asyncHandler(async (req, res) => {
       type, 
       reading, 
       // consumedFoods, 
-      description, 
+      description,
+      isMedsTaken = null, 
       isExercised } = req.body;
 
     //TODO: add logic to add only one value (BB, AB, BL, AL, BD, AD) for the day;
@@ -26,6 +27,7 @@ const createReading = asyncHandler(async (req, res) => {
       // consumedFoods,
       description,
       isExercised,
+      isMedsTaken,
       userId: user._id
     });
 
@@ -36,6 +38,7 @@ const createReading = asyncHandler(async (req, res) => {
         // consumedFoods: newReading.consumedFoods,
         description: newReading.description,
         isExercised: newReading.isExercised,
+        isMedsTaken: newReading.isMedsTaken,
         userId: newReading.userId,
         createdAt: getFormattedTimeStamp(newReading.createdAt)
       }
