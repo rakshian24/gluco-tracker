@@ -14,7 +14,7 @@ const createReading = asyncHandler(async (req, res) => {
     const { 
       type, 
       reading, 
-      // consumedFoods, 
+      consumedFoods, 
       description,
       isMedsTaken = null, 
       isExercised } = req.body;
@@ -24,7 +24,7 @@ const createReading = asyncHandler(async (req, res) => {
     const newReading = await GlucoReading.create({
       type,
       reading,
-      // consumedFoods,
+      consumedFoods,
       description,
       isExercised,
       isMedsTaken,
@@ -35,7 +35,7 @@ const createReading = asyncHandler(async (req, res) => {
       data: {
         _id: newReading._id,
         reading: newReading.reading,
-        // consumedFoods: newReading.consumedFoods,
+        consumedFoods: newReading.consumedFoods,
         description: newReading.description,
         isExercised: newReading.isExercised,
         isMedsTaken: newReading.isMedsTaken,

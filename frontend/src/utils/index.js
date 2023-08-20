@@ -31,3 +31,7 @@ export const isStandAloneAndRunningOnIos16 = () => isRunningStandalone() && isAp
 export const showIsMedsTakenCheckbox = (selectedValue) => {
   return ['AB', 'AD'].includes(selectedValue)
 }
+
+export const showConsumedFoodsTagBox = (selectedValue) => {
+  return ['AB', 'AL', 'AD'].includes(selectedValue);
+}

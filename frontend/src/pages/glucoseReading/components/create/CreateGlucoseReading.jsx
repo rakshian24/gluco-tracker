@@ -8,7 +8,7 @@ import SelectDropdown from '../../../../components/SelectDropdown';
 import { UpdateFormFooterContainer } from '../../../profile/styles';
 import { useCreateReadingMutation } from '../../../../slices/readingApiSlice';
 import LoadingSpinner from '../../../../components/LoadingSpinner';
-import { showIsMedsTakenCheckbox } from '../../../../utils';
+import { showConsumedFoodsTagBox, showIsMedsTakenCheckbox } from '../../../../utils';
 import TagBox from '../../../../components/tabBox/TagBox';
 
 const defaultFormFields = {
@@ -43,7 +43,7 @@ const CreateGlucoseReading = () => {
       type: selectedValue?.value || '',
       isExercised: isExercisedCheckBoxValue,
       ...(showIsMedsTakenCheckbox(selectedValue?.value) && { isMedsTaken: isMedsTakenCheckBoxValue }),
-      foodsConsumed: tags
+      consumedFoods: tags.map(tagObj => tagObj.text)
     }
     try {
       await createReading({ ...payload }).unwrap();
@@ -142,16 +142,18 @@ const CreateGlucoseReading = () => {
           <ErrorText>{formError.isExercised}</ErrorText>
         </FormItem>
 
-        <FormItem id="foodsConsumed">
-          <label>Foods consumed</label>
-          <TagBox
-            name="foodsConsumed"
-            type="text"
-            tags={tags}
-            setTags={setTags}
-          />
-          <ErrorText>{formError.reading}</ErrorText>
-        </FormItem>
+        {showConsumedFoodsTagBox(selectedValue?.value) && (
+          <FormItem id="consumedFoods">
+            <label>Foods consumed</label>
+            <TagBox
+              name="consumedFoods"
+              type="text"
+              tags={tags}
+              setTags={setTags}
+            />
+            <ErrorText>{formError.consumedFoods}</ErrorText>
+          </FormItem>
+        )}
 
         <FormItem id="description">
           <label>Description</label>
