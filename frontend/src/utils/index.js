@@ -27,3 +27,7 @@ export const isAppRunningOnIos16 = () => {
 }
 
 export const isStandAloneAndRunningOnIos16 = () => isRunningStandalone() && isAppRunningOnIos16();
+
+export const showIsMedsTakenCheckbox = (selectedValue) => {
+  return ['AB', 'AD'].includes(selectedValue)
+}

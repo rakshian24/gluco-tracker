@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { AppError } from '../utils/index.js';
 
 const typeForMakingConsumedFoodsRequired = ['AB', 'AL', 'AD'];
 const typeForMakingIsMedsTakenRequired = ['AB', 'AD'];
@@ -7,7 +8,7 @@ const glucoReadingSchema = mongoose.Schema(
   {
     type: {
       type: String,
-      required: true,
+      required: [true, 'Please select the type!'],
       enum: ['BB', 'AB', 'BL', 'AL', 'BD', 'AD'],
     },
     userId: {
@@ -17,15 +18,25 @@ const glucoReadingSchema = mongoose.Schema(
     },
     reading: {
       type: Number,
-      required: true,
+      required: [true, 'Reading is required!'],
+      min: [51, 'Reading must be greater than 50'],
+      max: [400, 'Exceeding the reading limit(400)'],
+      validate: {
+        validator: function (readingValue) {
+          // Below regex is for allowing only positive non decimal numbers with null value
+          if (!(/^(?!0+(?:\0+)?)\d*(?:\d+)?$/.test(readingValue))) {
+            throw new AppError('Special characters are not allowed', 400)
+          }
+        }
+      }
     },
     isMedsTaken: {
       type: Boolean,
-      required: function () {
-        if (typeForMakingIsMedsTakenRequired.includes(this.type)) {
-          return [true, 'Have you taken your pills yet?']
-        } else {
-          return false
+      validate: {
+        validator: function (isMedsTaken) {
+          if (typeForMakingIsMedsTakenRequired.includes(this.type) && isMedsTaken === null) {
+            throw new AppError('Have you taken your pills yet?', 400)
+          }
         }
       }
     },
@@ -49,7 +60,7 @@ const glucoReadingSchema = mongoose.Schema(
     // },
     description: {
       type: String,
-      maxLength: [100, "Description is longer than the max length(100)"],
+      maxLength: [250, "Description is longer than the max length(250)"],
     },
     isExercised: {
       type: Boolean,
