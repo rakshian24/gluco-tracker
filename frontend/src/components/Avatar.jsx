@@ -16,8 +16,8 @@ const StyledAvatar = styled.div([], props => ({
   fontSize: '1.75rem',
   fontWeight: 600,
   cursor: 'pointer',
-  width: '3.75rem',
-  height: '3.75rem',
+  width: '3.125rem',
+  height: '3.125rem',
 
   ...(props.size && props.size === 'md' && {
     width: '3.75rem',
