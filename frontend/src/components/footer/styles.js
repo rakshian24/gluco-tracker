@@ -8,7 +8,7 @@ export const FooterContainer = styled.div`
   min-height: 6.5rem;
   border-top: 1px solid #eee;
   
-  .footer-add-icon{
+  .footer-icon-lg{
     width: 3.75rem;
     height: 3.75rem;
   }

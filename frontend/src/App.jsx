@@ -15,6 +15,9 @@ import PageNotFound from './pages/pageNotFound/PageNotFound';
 import CreateGlucoseReading from './pages/glucoseReading/components/create/CreateGlucoseReading';
 import Footer from './components/footer/Footer';
 import { useWindowSize } from './hooks/useWindowResize';
+import GlucoseReadingLists from './pages/glucoseReading/components/list/GlucoseReadingLists';
+import SignOut from './pages/signOut/SignOut';
+import { ROUTES } from './constants';
 
 const AppWrapper = styled.div`
   height: 100vh;
@@ -33,6 +36,8 @@ const AppContainer = styled.div`
   }
 `;
 
+const { SIGN_UP, SIGN_IN, SIGN_OUT, DASHBOARD, PROFILE, CREATE_READING, LIST_READINGS } = ROUTES;
+
 const App = () => {
   const [screenWidth] = useWindowSize();
   const isMobileScreen = screenWidth <= 500;
@@ -44,18 +49,25 @@ const App = () => {
       <StyledToastContainer />
       <AppContainer>
         <Routes>
-          <Route path='/' element={<Home />}>
+
+          <Route path={SIGN_UP} element={<Home />}>
             <Route element={<SignUp />} index />
-            <Route element={<SignIn />} path='sign-in' />
+            <Route element={<SignIn />} path={SIGN_IN} />
           </Route>
 
           {/* Protected routes */}
           <Route path='' element={<ProtectedRoute />}>
-            <Route element={<Dashboard />} path='dashboard' />
-            <Route element={<Profile />} path='profile' />
-            <Route element={<CreateGlucoseReading />} path='/reading/create' />
+            <Route element={<Dashboard />} path={DASHBOARD} />
+            <Route element={<Profile />} path={PROFILE} />
+            <Route element={<CreateGlucoseReading />} path={CREATE_READING} />
+            <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />
+
+            {/* This route is only for mobile screen */}
+            {isMobileScreen && <Route element={<SignOut />} path={SIGN_OUT} />}
           </Route>
+
           <Route path='*' element={<PageNotFound />} />
+
         </Routes>
       </AppContainer>
       {isMobileScreen && hasUserInfo && < Footer />}

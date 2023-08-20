@@ -4,6 +4,17 @@ export const USERS_URL = '/api/v1/users';
 export const BUTTON_TYPE = {
   ADD: 'ADD',
   REMOVE: 'REMOVE'
+};
+
+export const ROUTES = {
+  SIGN_UP: '/',
+  SIGN_IN: '/sign-in',
+  SIGN_OUT: '/sign-out',
+  DASHBOARD: '/dashboard',
+  PROFILE: '/profile',
+  CREATE_READING: '/reading/create',
+  LIST_READINGS: '/readings'
+
 }
 
 export const colors = {
