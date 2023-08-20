@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { styled } from 'styled-components';
+import { styled, ThemeProvider } from 'styled-components';
 import { useSelector } from 'react-redux';
 
 import Header from './components/Header';
@@ -19,6 +19,7 @@ import GlucoseReadingLists from './pages/glucoseReading/components/list/GlucoseR
 import SignOut from './pages/signOut/SignOut';
 import { ROUTES } from './constants';
 import { isStandAloneAndRunningOnIos16 } from './utils';
+import { greenTheme } from './common/theme';
 
 const AppWrapper = styled.div`
   height: 100vh;
@@ -44,34 +45,36 @@ const App = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const hasUserInfo = userInfo && Object.keys(userInfo).length > 0;
   return (
-    <AppWrapper>
-      {!isMobileScreen && <Header />}
-      <StyledToastContainer />
-      <AppContainer style={{height: isStandAloneAndRunningOnIos16() ? 'calc(100vh - 8.175rem)' : 'calc(100vh - 6.55rem)'}}>
-        <Routes>
+    <ThemeProvider theme={greenTheme}>
+      <AppWrapper>
+        {!isMobileScreen && <Header />}
+        <StyledToastContainer />
+        <AppContainer style={{ height: isStandAloneAndRunningOnIos16() ? 'calc(100vh - 8.175rem)' : 'calc(100vh - 6.55rem)' }}>
+          <Routes>
 
-          <Route path={SIGN_UP} element={<Home />}>
-            <Route element={<SignUp />} index />
-            <Route element={<SignIn />} path={SIGN_IN} />
-          </Route>
+            <Route path={SIGN_UP} element={<Home />}>
+              <Route element={<SignUp />} index />
+              <Route element={<SignIn />} path={SIGN_IN} />
+            </Route>
 
-          {/* Protected routes */}
-          <Route path='' element={<ProtectedRoute />}>
-            <Route element={<Dashboard />} path={DASHBOARD} />
-            <Route element={<Profile />} path={PROFILE} />
-            <Route element={<CreateGlucoseReading />} path={CREATE_READING} />
-            <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />
+            {/* Protected routes */}
+            <Route path='' element={<ProtectedRoute />}>
+              <Route element={<Dashboard />} path={DASHBOARD} />
+              <Route element={<Profile />} path={PROFILE} />
+              <Route element={<CreateGlucoseReading />} path={CREATE_READING} />
+              <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />
 
-            {/* This route is only for mobile screen */}
-            {isMobileScreen && <Route element={<SignOut />} path={SIGN_OUT} />}
-          </Route>
+              {/* This route is only for mobile screen */}
+              {isMobileScreen && <Route element={<SignOut />} path={SIGN_OUT} />}
+            </Route>
 
-          <Route path='*' element={<PageNotFound />} />
+            <Route path='*' element={<PageNotFound />} />
 
-        </Routes>
-      </AppContainer>
-      {isMobileScreen && hasUserInfo && < Footer />}
-    </AppWrapper>
+          </Routes>
+        </AppContainer>
+        {isMobileScreen && hasUserInfo && < Footer />}
+      </AppWrapper>
+    </ThemeProvider>
   )
 }
 

@@ -103,7 +103,7 @@ const CreateGlucoseReading = () => {
 
         <UpdateFormFooterContainer>
           <Link to="/dashboard">
-            <FormButton className="form-button" priority='tertiary'>
+            <FormButton className="form-button" priority='secondary'>
               Cancel
             </FormButton>
           </Link>

@@ -30,7 +30,7 @@ const UserEmail = styled.p`
 const LinkText = styled.p`
   font-size: 1.85rem;
   font-weight: 500;
-  color: #0077c5;
+  color: ${({ theme }) => theme.primaryColor};
   cursor: pointer;
 `;
 
@@ -39,7 +39,8 @@ const SignOutButton = styled.button`
   font-size: 1.85rem;
   border: none;
   outline: none;
-  background: #e3e5e8;
+  background: ${({ theme }) => theme.secondaryBtnColor};
+  color: ${({ theme }) => theme.secondaryBtnTextColor};
   padding: 1rem 2rem;
   border-radius: 0.8rem;
   font-weight: 500;
