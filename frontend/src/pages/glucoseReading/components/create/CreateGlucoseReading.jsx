@@ -9,6 +9,7 @@ import { UpdateFormFooterContainer } from '../../../profile/styles';
 import { useCreateReadingMutation } from '../../../../slices/readingApiSlice';
 import LoadingSpinner from '../../../../components/LoadingSpinner';
 import { showIsMedsTakenCheckbox } from '../../../../utils';
+import TagBox from '../../../../components/tabBox/TagBox';
 
 const defaultFormFields = {
   type: '',
@@ -23,6 +24,7 @@ const CreateGlucoseReading = () => {
   const [formError, setFormError] = useState({});
   const [isMedsTakenCheckBoxValue, setIsMedsTakenCheckBoxValue] = useState(null);
   const [isExercisedCheckBoxValue, setIsExercisedCheckBoxValue] = useState(false);
+  const [tags, setTags] = useState([])
   const navigate = useNavigate();
 
   const [createReading, { isLoading, error: { data: { message: errorMessageObject = {} } = {} } = {} }] = useCreateReadingMutation();
@@ -40,7 +42,8 @@ const CreateGlucoseReading = () => {
       ...formFields,
       type: selectedValue?.value || '',
       isExercised: isExercisedCheckBoxValue,
-      ...(showIsMedsTakenCheckbox(selectedValue?.value) && { isMedsTaken: isMedsTakenCheckBoxValue })
+      ...(showIsMedsTakenCheckbox(selectedValue?.value) && { isMedsTaken: isMedsTakenCheckBoxValue }),
+      foodsConsumed: tags
     }
     try {
       await createReading({ ...payload }).unwrap();
@@ -137,6 +140,17 @@ const CreateGlucoseReading = () => {
             <span>Did you exercise?</span>
           </CheckboxLabel>
           <ErrorText>{formError.isExercised}</ErrorText>
+        </FormItem>
+
+        <FormItem id="foodsConsumed">
+          <label>Foods consumed</label>
+          <TagBox
+            name="foodsConsumed"
+            type="text"
+            tags={tags}
+            setTags={setTags}
+          />
+          <ErrorText>{formError.reading}</ErrorText>
         </FormItem>
 
         <FormItem id="description">
