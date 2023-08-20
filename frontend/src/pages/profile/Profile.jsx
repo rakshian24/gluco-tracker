@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Heading, ProfileContainer, UpdateFormFooterContainer } from './styles';
 import { ErrorText, FormButton, FormItem } from '../../common/styled-components';
@@ -15,6 +15,7 @@ const Profile = () => {
   const [formError, setFormError] = useState({});
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [updateUserDetails, { isLoading }] = useUpdateUserDetailsMutation();
 
   const handleValidation = () => {
@@ -41,7 +42,8 @@ const Profile = () => {
     try {
       const res = await updateUserDetails({ ...formFields }).unwrap();
       dispatch(setCredentials({ ...res }));
-      toast.success('Profile updated successfully!')
+      toast.success('Profile updated successfully!');
+      navigate('/dashboard');
     } catch (err) {
       toast.error('Profile update failed!');
     }

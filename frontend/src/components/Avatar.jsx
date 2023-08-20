@@ -1,11 +1,14 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+
+import { ROUTES } from '../constants';
 
 const StyledAvatar = styled.div([], props => ({
   display: 'flex',
   borderRadius: '50%',
-  background: 'linear-gradient(175deg, rgba(74,185,164,1) 34%, rgba(49,171,192,1) 92%)',
+  background: props.isavataractive === 'true' ? '#4ab9a4' : '#D7D8D9',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -20,6 +23,7 @@ const StyledAvatar = styled.div([], props => ({
     width: '3.75rem',
     height: '3.75rem'
   }),
+
   ...(props.size && props.size === 'lg' && {
     width: '7rem',
     height: '7rem',
@@ -29,9 +33,10 @@ const StyledAvatar = styled.div([], props => ({
 }));
 
 const Avatar = ({ size, handleOnClick }) => {
+  const { pathname } = useLocation();
   const { userInfo } = useSelector((state) => state.auth);
   return (
-    <StyledAvatar size={size} onClick={handleOnClick}>
+    <StyledAvatar size={size} onClick={handleOnClick} isavataractive={pathname === ROUTES.SIGN_OUT ? 'true' : 'false'}>
       {userInfo?.name[0]?.toUpperCase() || 'U'}
     </StyledAvatar>
   )
