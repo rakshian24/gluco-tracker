@@ -17,3 +17,13 @@ export const formatErrorObject = (response) => {
     }
   }
 };
+
+export const isRunningStandalone = () => {
+  return (window.matchMedia('(display-mode: standalone)').matches);
+}
+
+export const isAppRunningOnIos16 = () => {
+  return window.navigator.userAgent.match('iPhone OS 16')?.length > 0
+}
+
+export const isStandAloneAndRunningOnIos16 = () => isRunningStandalone() && isAppRunningOnIos16();

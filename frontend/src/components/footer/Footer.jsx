@@ -11,6 +11,7 @@ import listLogo from '../../assets/pngs/list.png';
 import listActiveLogo from '../../assets/pngs/listActive.png';
 import Avatar from '../Avatar';
 import { ROUTES } from '../../constants';
+import { isStandAloneAndRunningOnIos16 } from '../../utils';
 
 const { DASHBOARD, CREATE_READING, LIST_READINGS, SIGN_OUT } = ROUTES;
 
@@ -19,7 +20,7 @@ const Footer = () => {
   const { pathname } = useLocation();
 
   return (
-    <FooterContainer>
+    <FooterContainer style={{paddingBottom: isStandAloneAndRunningOnIos16() ? '5rem' : '1.25rem'}}>
       <NavLink to={DASHBOARD}>
         <FooterIcons src={pathname === DASHBOARD ? dashboardActiveLogo : dashboardLogo} alt="dashboard" />
       </NavLink>
