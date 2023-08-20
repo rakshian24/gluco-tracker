@@ -12,7 +12,7 @@ const StyledAvatar = styled.div([], props => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: '#ffffff',
+  color: props.theme.white,
   fontSize: '1.75rem',
   fontWeight: 600,
   cursor: 'pointer',

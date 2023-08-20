@@ -1,11 +1,13 @@
 import React from 'react';
 import Select from 'react-select';
+import { useTheme } from 'styled-components';
 
 // import { useWindowSize } from '../hooks/useWindowResize';
 
 const SelectDropdown = ({ selectedValue, setSelectedValue, dropDownOptions, placeholder }) => {
   // const [screenWidth] = useWindowSize();
   // const isLargeScreen = screenWidth > 500;
+  const theme = useTheme();
   return <Select
     isSearchable={false}
     options={dropDownOptions}
@@ -13,15 +15,17 @@ const SelectDropdown = ({ selectedValue, setSelectedValue, dropDownOptions, plac
     value={selectedValue}
     placeholder={placeholder}
     styles={{
-      option: (styles) => ({
+      option: (styles, state) => ({
         ...styles,
         cursor: 'pointer',
         fontFamily: 'inherit',
         fontSize: '1.65rem',
         paddingTop: '1.5rem',
-        paddingBottom: '1.5rem'
+        paddingBottom: '1.5rem',
+        backgroundColor: state.isSelected ? theme.lightGrey : theme.white,
+        color: theme.primaryColor
       }),
-      control: (baseStyles) => ({
+      control: (baseStyles, state) => ({
         ...baseStyles,
         minHeight: '5rem',
         height: '5rem',
@@ -29,8 +33,9 @@ const SelectDropdown = ({ selectedValue, setSelectedValue, dropDownOptions, plac
         fontSize: '1.65rem',
         cursor: 'pointer',
         fontFamily: 'inherit',
-        border: '1px solid #8498e2',
-        borderRadius: '1rem'
+        border: `1px solid ${theme.textBoxBorderColor}`,
+        borderRadius: '1rem',
+        boxShadow: state.isFocused ? `${theme.textBoxBorderColor} 0px 0px 0px 0.5px` : '0'
       }),
       valueContainer: (baseStyles) => ({
         ...baseStyles,

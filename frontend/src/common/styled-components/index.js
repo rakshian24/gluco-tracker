@@ -2,19 +2,12 @@ import { Link } from 'react-router-dom';
 import { styled } from 'styled-components';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { BUTTON_TYPE, colors } from '../../constants';
+import { BUTTON_TYPE } from '../../constants';
 
-const { lightBlueGrey,
-  primaryBlue,
-  white,
-  primaryGreen,
-  lightOrange,
-  darkOrange,
-  lightPrimaryBlue } = colors;
-
-const { ADD, REMOVE } = BUTTON_TYPE;
+const { ADD } = BUTTON_TYPE;
 
 export const FormHeading = styled.h1`
+  color: ${({ theme }) => theme.primaryColor};
   font-weight: 400;
   font-size: 2.5rem;
   margin-bottom: 3rem;
@@ -32,10 +25,11 @@ export const FormItem = styled.div`
   flex-direction: column;
   margin-bottom: 2rem;
   font-weight: 400;
+  color: ${({ theme }) => theme.secondaryColor};
 
   input{
     padding: 1.5rem;
-    border: 1px solid #8498e2;
+    border: ${({ theme }) => `1px solid ${theme.textBoxBorderColor}`};
     border-radius: 1rem;
     font-size: 1.65rem;
 
@@ -44,7 +38,7 @@ export const FormItem = styled.div`
     }
     
     &::placeholder {
-      color: #273178;
+      color: ${({ theme }) => theme.placeholderColor};
       opacity: 0.5;
       font-size: 1.65rem;
       @media screen and (min-width: 501px){
@@ -53,18 +47,22 @@ export const FormItem = styled.div`
     } 
     &:focus {
       outline: none !important;
-      border: 1.5px solid #6650ef;
+      border: ${({ theme }) => `1.5px solid ${theme.textBoxBorderColor}`};
+      box-shadow: ${({ theme }) => `${theme.textBoxBorderColor} 0px 0px 0px 0.5px`};
     }
 
     &[type="checkbox"]{
       width: 2rem;
       height: 2rem;
       margin-right: 1rem;
+      border: none;
+      outline: none;
+      filter: hue-rotate(310deg)
     }
   }
   
   label{
-    color: #273178;
+    color: ${({ theme }) => theme.secondaryColor};
     font-size: 1.65rem;
     font-weight: 500;
     margin-bottom: 0.5rem;
@@ -85,7 +83,7 @@ export const CheckboxLabel = styled.div`
 `;
 
 export const ErrorText = styled.span`
-  color: #ff4d42;
+  color: ${({ theme }) => theme.errorTextColor};
   font-size: 1.5rem;
   font-weight: 500;
   margin-top: 0.5rem;
@@ -93,7 +91,7 @@ export const ErrorText = styled.span`
 
 export const FormFooterTextContainer = styled.div`
   font-size: 1.65rem;
-  color: #aaa;
+  color: ${({ theme }) => theme.secondaryGrey};
   margin-bottom: 2rem;
 
   @media screen and (min-width: 501px){
@@ -102,14 +100,14 @@ export const FormFooterTextContainer = styled.div`
 `;
 
 export const FormButton = styled.button`
-  background: ${({ priority }) => {
+  background: ${({ theme, priority }) => {
     switch (priority) {
       case 'primary':
-        return '#0077c5';
-      case 'tertiary':
-        return '#e3e5e8';
+        return theme.primaryBtnColor;
+      case 'secondary':
+        return theme.secondaryBtnColor;
       default:
-        return '#0077c5';
+        return theme.primaryBtnColor;
     }
   }};
   border: none;
@@ -117,14 +115,14 @@ export const FormButton = styled.button`
   padding: 1.5rem 2rem;
   text-transform: uppercase;
   border-radius: 10rem;
-  color: ${({ priority }) => {
+  color: ${({ theme, priority }) => {
     switch (priority) {
       case 'primary':
-        return '#fff';
-      case 'tertiary':
-        return 'black';
+        return theme.primaryBtnTextColor;
+      case 'secondary':
+        return theme.secondaryBtnTextColor;
       default:
-        return '#fff';
+        return theme.primaryBtnTextColor;
     }
   }};
   font-weight: 600;
@@ -140,10 +138,22 @@ export const FormButton = styled.button`
   &:disabled {
     opacity: 0.5;
   }
+
+  &:hover{
+    background: ${({ theme, priority }) => {
+    switch (priority) {
+      case 'primary':
+        return theme.primaryBtnHoverColor;
+      case 'secondary':
+        return theme.secondaryBtnHoverColor;
+      default:
+        return theme.primaryBtnHoverColor;
+    }
+  }};
 `;
 
 export const StyledLink = styled(Link)`
-  color: #0077c5;
+  color: ${({ theme }) => theme.primaryColor};
   font-weight: 500;
 
   &:hover{
@@ -165,29 +175,25 @@ export const StyledToastContainer = styled(ToastContainer)`
 export const Button = styled.button`
   cursor: pointer;
   outline: none;
-  border: 1px solid ${lightBlueGrey};
-  background: ${({ buttontype }) => {
+  border: none;
+  background: ${({ theme, buttontype }) => {
     switch (buttontype) {
       case 'primary':
-        return lightPrimaryBlue;
+        return theme.primaryBtnColor;
       case ADD:
-        return white;
-      case REMOVE:
-        return lightOrange;
+        return theme.linearGradientColor;
       default:
-        return lightPrimaryBlue;
+        return theme.primaryBtnColor;
     }
   }};
-  color: ${({ buttontype }) => {
+  color: ${({ theme, buttontype }) => {
     switch (buttontype) {
       case 'primary':
-        return white;
+        return theme.primaryBtnTextColor;
       case ADD:
-        return primaryGreen;
-      case REMOVE:
-        return white
+        return theme.primaryBtnTextColor;
       default:
-        return white
+        return theme.primaryBtnTextColor
     }
   }};
   font-weight: 700;
@@ -197,24 +203,16 @@ export const Button = styled.button`
   font-size: 16px;
 
   &:hover{
-    background: ${({ buttontype }) => {
+    background: ${({ theme, buttontype }) => {
     switch (buttontype) {
       case 'primary':
-        return primaryBlue;
+        return theme.primaryBtnHoverColor;
       case ADD:
-        return white;
-      case REMOVE:
-        return darkOrange;
+        return theme.primaryBtnHoverColor;
       default:
-        return primaryBlue;
+        return theme.primaryBtnHoverColor;
     }
   }};
-  }
-
-  &:disabled{
-    background-color: #eee;
-    opacity: 0.6;
-    color: ${primaryGreen}
   }
 
   @media screen and (min-width: 501px) and (max-width: 1024px){
@@ -231,7 +229,7 @@ export const PageTitle = styled.h1`
   font-size: 2.5rem;
   font-weight: 400;
   margin-bottom: 3rem;
-  color: #4ab9a4;
+  color: ${({ theme }) => theme.primaryColor};
   
   @media screen and (min-width: 501px) and (max-width: 1023px){
     font-size: 3rem;
@@ -245,13 +243,20 @@ export const PageTitle = styled.h1`
 export const TextArea = styled.textarea`
   padding: 1.5rem;
   border-radius: 1rem;
-  border: 1px solid #8498e2;
+  border: ${({ theme }) => `1px solid ${theme.textBoxBorderColor}`};
   font-size: 1.65rem;
   font-family: inherit;
   margin-bottom: 1.5rem;
 
   &:focus {
     outline: none;
-    border: 1px solid #8498e2;
+    border: ${({ theme }) => `1.5px solid ${theme.textBoxBorderColor}`};
+    box-shadow: ${({ theme }) => `${theme.textBoxBorderColor} 0px 0px 0px 0.5px`};
   }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.placeholderColor};
+    opacity: 0.5;
+    font-size: 1.65rem;
+  } 
 `;

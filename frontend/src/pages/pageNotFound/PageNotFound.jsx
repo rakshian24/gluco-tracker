@@ -12,6 +12,7 @@ const PageNotFoundHeader = styled.h1`
   font-weight: 400;
   text-align: center;
   margin-bottom: 3rem;
+  color: ${({ theme }) => theme.primaryColor}; 
 
   @media screen and (min-width: 501px){
     font-size: 3rem;
