@@ -20,7 +20,7 @@ const Footer = () => {
   const { pathname } = useLocation();
 
   return (
-    <FooterContainer style={{paddingBottom: isStandAloneAndRunningOnIos16() ? '5rem' : '1.25rem'}}>
+    <FooterContainer style={{paddingBottom: isStandAloneAndRunningOnIos16() ? '3.5rem' : '1.25rem'}}>
       <NavLink to={DASHBOARD}>
         <FooterIcons src={pathname === DASHBOARD ? dashboardActiveLogo : dashboardLogo} alt="dashboard" />
       </NavLink>

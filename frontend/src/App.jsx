@@ -47,7 +47,7 @@ const App = () => {
     <AppWrapper>
       {!isMobileScreen && <Header />}
       <StyledToastContainer />
-      <AppContainer style={{height: isStandAloneAndRunningOnIos16() ? 'calc(100vh - 10.3rem)' : 'calc(100vh - 6.55rem)'}}>
+      <AppContainer style={{height: isStandAloneAndRunningOnIos16() ? 'calc(100vh - 8.175rem)' : 'calc(100vh - 6.55rem)'}}>
         <Routes>
 
           <Route path={SIGN_UP} element={<Home />}>
