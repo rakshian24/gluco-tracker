@@ -1,14 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
+import { RiAddCircleFill, RiDashboardFill } from 'react-icons/ri';
+import { FaListAlt } from "react-icons/fa";
+import { useTheme } from 'styled-components';
 
-import { FooterContainer, FooterIcons } from './styles';
-import dashboardLogo from '../../assets/pngs/dashboard.png';
-import dashboardActiveLogo from '../../assets/pngs/dashboardActive.png';
-import addLogo from '../../assets/pngs/add.png';
-import addActiveLogo from '../../assets/pngs/addActive.png';
-import listLogo from '../../assets/pngs/list.png';
-import listActiveLogo from '../../assets/pngs/listActive.png';
+import { FooterContainer } from './styles';
 import Avatar from '../Avatar';
 import { ROUTES } from '../../constants';
 import { isStandAloneAndRunningOnIos16 } from '../../utils';
@@ -18,19 +15,19 @@ const { DASHBOARD, CREATE_READING, LIST_READINGS, SIGN_OUT } = ROUTES;
 const Footer = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const { pathname } = useLocation();
+  const theme = useTheme();
 
   return (
-    <FooterContainer style={{paddingBottom: isStandAloneAndRunningOnIos16() ? '3.5rem' : '1.25rem'}}>
+    <FooterContainer style={{ paddingBottom: isStandAloneAndRunningOnIos16() ? '3.5rem' : '1.25rem' }}>
       <NavLink to={DASHBOARD}>
-        <FooterIcons src={pathname === DASHBOARD ? dashboardActiveLogo : dashboardLogo} alt="dashboard" />
+        <RiDashboardFill size={30} color={pathname === DASHBOARD ? theme.primaryColor : theme.primaryGrey} />
       </NavLink>
       <NavLink to={CREATE_READING}>
-        <FooterIcons src={pathname === CREATE_READING ? addActiveLogo : addLogo} alt="add" className="footer-icon-lg" />
+        <RiAddCircleFill size={32} color={pathname === CREATE_READING ? theme.primaryColor : theme.primaryGrey} />
       </NavLink>
       <NavLink to={LIST_READINGS}>
-        <FooterIcons src={pathname === LIST_READINGS ? listActiveLogo : listLogo} alt="list" className="footer-icon-lg" />
+        <FaListAlt size={28} color={pathname === LIST_READINGS ? theme.primaryColor : theme.primaryGrey} />
       </NavLink>
-
       <NavLink to={SIGN_OUT}>
         <Avatar userInfo={userInfo} />
       </NavLink>
