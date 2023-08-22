@@ -5,6 +5,6 @@ import { createReading, getAllReadings } from '../controllers/glucoReadingContro
 const router = express.Router();
 
 router.post('/', protect, createReading);
-router.get('/', protect, getAllReadings);
+router.get('/all', protect, getAllReadings);
 
 export default router;

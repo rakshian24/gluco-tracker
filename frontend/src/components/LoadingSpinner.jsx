@@ -7,7 +7,7 @@ const LoadingSpinnerContainer = styled.div`
   justify-content: center;
 `;
 
-const LoadingSpinner = ({ width = '200px' }) => {
+const LoadingSpinner = ({ width = '100px' }) => {
   const theme = useTheme();
   return (
     <LoadingSpinnerContainer>
