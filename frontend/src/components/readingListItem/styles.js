@@ -6,6 +6,7 @@ export const ListContainer = styled.fieldset`
   border-radius: 1rem;
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
   margin-bottom: 3rem;
+  background: ${({ theme }) => theme.lightGrey};
 `;
 
 export const StyledLegend = styled.legend`
@@ -13,7 +14,9 @@ export const StyledLegend = styled.legend`
   margin: auto 1rem;
   border: none;
   outline: none;
-  background: #ffffff;
+  background: ${({ theme }) => theme.primaryGrey};
+  border-radius: 1rem;
+  padding: 1rem 2rem;
 `;
 
 export const ListContentContainer = styled.div`

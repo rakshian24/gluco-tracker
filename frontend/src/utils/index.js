@@ -58,6 +58,6 @@ export const getFormattedDate = (d) => {
   } else if (moment(parsedDate).isSame(today.subtract(1, 'day'), "day")) {
     return 'Yesterday'
   } else {
-    return d
+    return moment(d, 'DD-MM-YYYY').format('DD-MMM-YYYY').toString();
   }
 }
