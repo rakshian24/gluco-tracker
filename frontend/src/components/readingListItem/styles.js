@@ -9,7 +9,7 @@ export const ListContainer = styled.fieldset`
 `;
 
 export const StyledLegend = styled.legend`
-  font-size: 2rem;
+  font-size: 1.75rem;
   margin: auto 1rem;
   border: none;
   outline: none;
@@ -17,7 +17,7 @@ export const StyledLegend = styled.legend`
 `;
 
 export const ListContentContainer = styled.div`
-  font-size: 1.75rem;
+  font-size: 1.65rem;
 `;
 
 export const ListItemRow = styled.div`

@@ -14,8 +14,3 @@ export const FooterContainer = styled.div`
     height: 3.125rem;
   }
 `;
-
-export const FooterIcons = styled.img`
-  width: 2.5rem;
-  height: 2.5rem;
-`;
