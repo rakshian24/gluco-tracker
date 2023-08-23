@@ -40,9 +40,9 @@ const glucoReadingSchema = mongoose.Schema(
         }
       }
     },
-    // TODO: will be looked at this later
     consumedFoods: {
-      type: [String],
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: 'Food',
       validate: {
         validator: function (consumedFoodsVal) {
           if (typeForMakingConsumedFoodsRequired.includes(this.type)) {
