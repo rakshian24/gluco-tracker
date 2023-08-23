@@ -27,5 +27,5 @@ export const readingApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useCreateReadingMutation,
-  useGetReadingsQuery,
+  useLazyGetReadingsQuery,
 } = readingApiSlice;
