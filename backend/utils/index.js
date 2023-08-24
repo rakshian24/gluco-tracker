@@ -4,6 +4,10 @@ const getFormattedTimeStamp = (value) => {
   return moment(value).format("DD/MMM/YYYY hh:mm:ss A")
 }
 
+const isArrayEmpty = (arr) => {
+  return arr && arr.length > 0 ? false : true
+};
+
 class AppError extends Error {
   constructor(message, statusCode) {
     super(message);
@@ -16,5 +20,6 @@ class AppError extends Error {
 
 export {
   getFormattedTimeStamp,
-  AppError
+  AppError,
+  isArrayEmpty
 }

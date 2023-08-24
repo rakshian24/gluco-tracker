@@ -2,7 +2,8 @@ import asyncHandler from "express-async-handler";
 
 import User from "../models/userModel.js";
 import GlucoReading from "../models/glucoReadingModel.js";
-import { AppError, getFormattedTimeStamp } from "../utils/index.js";
+import Food from "../models/foodModel.js";
+import { AppError, getFormattedTimeStamp, isArrayEmpty } from "../utils/index.js";
 
 // description  Adding glucose reading data
 // route        POST /api/v1/glucoseReading
@@ -54,13 +55,29 @@ const createReading = asyncHandler(async (req, res) => {
 // access       Private
 const getAllReadings = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
-
   if (user) {
+    //TODO: Need to filter this based on loggedin user
+    //Get the readings of all the foodIds passed in the query param
+    const foodIds = req.query?.foodIds?.split(",");
+    if (!isArrayEmpty(foodIds)) {
+      const readingsForSelectedFood = await Food.find({ "_id": { $in: foodIds } }).populate('readings');
+      return res.status(200).json(readingsForSelectedFood);
+    }
+
     //Aggregation query for getting all the readings of a loggedIn user and grouping them by date
     const readings = await GlucoReading.aggregate([
       {
         $match: {
           'userId': user._id
+        }
+      },
+      {
+        $lookup:
+        {
+          from: "foods",
+          localField: "consumedFoods",
+          foreignField: "_id",
+          as: "consumedFoods"
         }
       },
       {
