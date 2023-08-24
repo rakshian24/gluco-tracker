@@ -15,6 +15,16 @@ const foodSchema = mongoose.Schema(
   }
 );
 
+foodSchema.set('toObject', { virtuals: true });
+foodSchema.set('toJSON', { virtuals: true });
+
+foodSchema.virtual('readings', {
+  ref: 'GlucoReading',
+  localField: '_id',
+  foreignField: 'consumedFoods',
+  justOne: false
+});
+
 const Food = mongoose.model('Food', foodSchema);
 
 export default Food;
