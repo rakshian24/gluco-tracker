@@ -32,6 +32,15 @@ const AppWrapper = styled.div`
 const AppContainer = styled.div`
   overflow-y: scroll;
   padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  -ms-overflow-style: none;  //For hiding scroll bars in IE and Edge
+  scrollbar-width: none; //For hiding scroll bars in Firefox
+
+  //For hiding scrollbar in Chrome, Safari and Opera
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @media screen and (min-width: 501px){
     display: flex;

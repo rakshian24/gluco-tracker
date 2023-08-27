@@ -9,8 +9,11 @@ export const ListContainer = styled.fieldset`
   background: ${({ theme }) => theme.linearGradientColor};
   color: ${({ theme }) => theme.white};
   min-width: 100%;
+  cursor: pointer;
+  height: auto;
 
-  @media screen and (min-width: 501px) and (max-width: 1023px){
+  @media screen and (min-width: 501px){
+    width: 48.5%;
     min-width: 48.5%;
   }
 `;

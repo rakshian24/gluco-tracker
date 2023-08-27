@@ -242,7 +242,7 @@ export const PageTitle = styled.h1`
   }
 
   @media screen and (min-width: 1024px){
-    font-size: 4rem;
+    font-size: 2.75rem;
   }
 `;
 
@@ -268,7 +268,7 @@ export const TextArea = styled.textarea`
 `;
 
 export const FormFirstRowContainer = styled.div`
-  @media screen and (min-width: 501px) and (max-width: 1023px){
+  @media screen and (min-width: 501px) {
     display: flex;
     align-item: center;
     justify-content: space-between;

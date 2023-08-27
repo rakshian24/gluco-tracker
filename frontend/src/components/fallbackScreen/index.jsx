@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 const FallBackScreenContainer = styled.div`
   margin-top: 4rem;
+  text-align: center;
 `;
 
 const FallbackScreenHeader = styled.div`

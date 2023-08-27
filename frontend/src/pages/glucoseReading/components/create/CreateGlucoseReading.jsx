@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { CheckboxLabel, ErrorText, FormButton, FormFirstRowContainer, FormItem, PageTitle, TextArea } from '../../../../common/styled-components';
 import { ROUTES, SELECT_DROP_DOWN_OPTIONS } from '../../../../constants';
 import SelectDropdown from '../../../../components/SelectDropdown';
-import { UpdateFormFooterContainer } from '../../../profile/styles';
+import { FormFooterContainer } from '../../../profile/styles';
 import { useCreateReadingMutation } from '../../../../slices/readingApiSlice';
 import LoadingSpinner from '../../../../components/LoadingSpinner';
 import { showConsumedFoodsTagBox, showIsMedsTakenCheckbox } from '../../../../utils';
@@ -186,16 +186,16 @@ const CreateGlucoseReading = () => {
           <ErrorText>{formError.description}</ErrorText>
         </FormItem>
 
-        <UpdateFormFooterContainer style={{ marginTop: "3rem" }}>
+        <FormFooterContainer style={{ marginTop: "3rem" }}>
           <Link to="/dashboard">
             <FormButton className="form-button" priority='secondary'>
               Cancel
             </FormButton>
           </Link>
-          <FormButton className="form-button" type="submit">
+          <FormButton className="form-button form-button-right" type="submit">
             Create
           </FormButton>
-        </UpdateFormFooterContainer>
+        </FormFooterContainer>
       </form>
     </div>
   )
