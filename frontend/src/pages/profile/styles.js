@@ -16,17 +16,22 @@ export const Heading = styled.h1`
   color: ${({ theme }) => theme.primaryColor};
 
   @media screen and (min-width: 501px){
-    font-size: 3rem;
+    font-size: 2.75rem;
   }
 `;
 
-export const UpdateFormFooterContainer = styled.div`
+export const FormFooterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 2rem;
 
+  .form-button-right{
+    margin-left: 2.5rem;
+  }
+
   @media screen and (min-width: 501px){
     margin-top: 3.25rem;
+    justify-content: flex-end;
   }
 `;

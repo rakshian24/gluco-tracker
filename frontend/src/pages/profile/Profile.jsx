@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { Heading, ProfileContainer, UpdateFormFooterContainer } from './styles';
+import { Heading, ProfileContainer, FormFooterContainer } from './styles';
 import { ErrorText, FormButton, FormItem } from '../../common/styled-components';
 import { useUpdateUserDetailsMutation } from '../../slices/userApiSlice';
 import { setCredentials } from '../../slices/authSlice';
@@ -81,16 +81,16 @@ const Profile = () => {
             <ErrorText>{formError.email}</ErrorText>
           </FormItem>
 
-          <UpdateFormFooterContainer>
+          <FormFooterContainer>
             <Link to="/dashboard">
               <FormButton className="form-button" priority='secondary'>
                 Cancel
               </FormButton>
             </Link>
-            <FormButton className="form-button" type="submit">
+            <FormButton className="form-button form-button-right" type="submit">
               Update
             </FormButton>
-          </UpdateFormFooterContainer>
+          </FormFooterContainer>
         </form>
       </div>
     </ProfileContainer>
