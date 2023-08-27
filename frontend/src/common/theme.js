@@ -6,6 +6,7 @@ export const greenTheme = {
   lightGrey: '#F2F2F2',
   secondaryGrey: '#aaa',
   linearGradientColor: 'linear-gradient(175deg, rgba(74,185,164,1) 34%, rgba(49,171,192,1) 92%)',
+  blackColor: '#000000',
 
   // Button
   primaryBtnColor: 'linear-gradient(175deg, rgba(74,185,164,1) 34%, rgba(49,171,192,1) 92%)',
