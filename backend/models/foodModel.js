@@ -2,10 +2,17 @@ import mongoose from 'mongoose';
 
 const foodSchema = mongoose.Schema(
   {
-    name: {
+    value: {
       type: String,
       required: [true, 'Please enter the food you consumed!'],
       maxLength: [20, 'Food name is exceeding the max character(20)'],
+      unique: true,
+      lowercase: true,
+    },
+    label: {
+      type: String,
+      required: [true, 'Please enter the food label!'],
+      maxLength: [20, 'Food label is exceeding the max character(20)'],
       unique: true,
       lowercase: true,
     }

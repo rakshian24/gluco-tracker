@@ -11,13 +11,14 @@ const createFood = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
-    const { name } = req.body;
-    const newFood = await Food.create({ name });
+    const { value, label } = req.body;
+    const newFood = await Food.create({ value, label });
 
     res.status(201).json({
       data: {
         _id: newFood._id,
-        name: newFood.name
+        value: newFood.value,
+        label: newFood.label
       }
     })
   } else {

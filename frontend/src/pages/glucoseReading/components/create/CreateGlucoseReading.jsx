@@ -9,7 +9,8 @@ import { UpdateFormFooterContainer } from '../../../profile/styles';
 import { useCreateReadingMutation } from '../../../../slices/readingApiSlice';
 import LoadingSpinner from '../../../../components/LoadingSpinner';
 import { showConsumedFoodsTagBox, showIsMedsTakenCheckbox } from '../../../../utils';
-import TagBox from '../../../../components/tabBox/TagBox';
+import { useLazyGetFoodsQuery } from '../../../../slices/foodApiSlice';
+import MultiSelectBox from '../../../../components/MultiSelectBox';
 
 const defaultFormFields = {
   type: '',
@@ -24,10 +25,15 @@ const CreateGlucoseReading = () => {
   const [formError, setFormError] = useState({});
   const [isMedsTakenCheckBoxValue, setIsMedsTakenCheckBoxValue] = useState(null);
   const [isExercisedCheckBoxValue, setIsExercisedCheckBoxValue] = useState(false);
-  const [tags, setTags] = useState([])
+  const [selectedMultiValue, setSelectedMultiValue] = useState([])
   const navigate = useNavigate();
 
   const [createReading, { isLoading, error: { data: { message: errorMessageObject = {} } = {} } = {} }] = useCreateReadingMutation();
+  const [trigger, { data: foods, isLoading: isFoodsLoading }] = useLazyGetFoodsQuery();
+
+  useEffect(() => {
+    trigger();
+  }, [])
 
   useEffect(() => {
     if (errorMessageObject && Object.keys(errorMessageObject).length > 0) {
@@ -43,7 +49,7 @@ const CreateGlucoseReading = () => {
       type: selectedValue?.value || '',
       isExercised: isExercisedCheckBoxValue,
       ...(showIsMedsTakenCheckbox(selectedValue?.value) && { isMedsTaken: isMedsTakenCheckBoxValue }),
-      consumedFoods: tags.map(tagObj => tagObj.text)
+      consumedFoods: selectedMultiValue.map(foodsObj => foodsObj._id)
     }
     try {
       await createReading({ ...payload }).unwrap();
@@ -78,7 +84,15 @@ const CreateGlucoseReading = () => {
     setSelectedValue(val);
   }
 
-  if (isLoading) {
+  const handleOnMultiSelectChange = (selectedMultiVal) => {
+    setSelectedMultiValue(selectedMultiVal)
+  }
+
+  const handleMultiSelectError = (err) => {
+    setFormError({ ...formError, consumedFoods: err?.data?.message?.value })
+  }
+
+  if (isLoading || isFoodsLoading) {
     return <LoadingSpinner />
   }
 
@@ -145,11 +159,13 @@ const CreateGlucoseReading = () => {
         {showConsumedFoodsTagBox(selectedValue?.value) && (
           <FormItem id="consumedFoods">
             <label>Foods consumed</label>
-            <TagBox
-              name="consumedFoods"
-              type="text"
-              tags={tags}
-              setTags={setTags}
+            <MultiSelectBox
+              options={foods}
+              selected={selectedMultiValue}
+              setSelected={setSelectedMultiValue}
+              handleOnMultiSelectChange={handleOnMultiSelectChange}
+              handleMultiSelectError={handleMultiSelectError}
+              triggerFetchFoods={trigger}
             />
             <ErrorText>{formError.consumedFoods}</ErrorText>
           </FormItem>
