@@ -1,20 +1,26 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useGetReadingQuery } from '../../slices/readingApiSlice';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import { useParams } from 'react-router-dom';
+import { PageTitle } from '../../common/styled-components';
+import { getFormattedDate, isArrayEmpty } from '../../utils';
+import ReadingDetailsCard from '../../components/readingDetailsCard';
 
 const ReadingDetails = () => {
   const { date } = useParams();
-  const { data: reading, isLoading } = useGetReadingQuery({ date });
+  const { data: readings, isLoading } = useGetReadingQuery({ date });
 
   if (isLoading) {
     return <LoadingSpinner />
   };
 
-  console.log("READING = ", reading)
-
   return (
-    <div>Reading Details Page</div>
+    <>
+      <PageTitle>Readings for {getFormattedDate(date)}</PageTitle>
+      {!isArrayEmpty(readings) && readings.map(reading => {
+        return <ReadingDetailsCard key={reading._id} readingObj={reading} />
+      })}
+    </>
   )
 }
 

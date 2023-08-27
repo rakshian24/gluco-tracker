@@ -33,7 +33,7 @@ const CreateGlucoseReading = () => {
 
   useEffect(() => {
     trigger();
-  }, [])
+  }, [trigger])
 
   useEffect(() => {
     if (errorMessageObject && Object.keys(errorMessageObject).length > 0) {
