@@ -11,16 +11,17 @@ import Home from './pages/home/Home';
 import { StyledToastContainer } from './common/styled-components';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/profile/Profile';
-import PageNotFound from './pages/pageNotFound/PageNotFound';
 import CreateGlucoseReading from './pages/glucoseReading/components/create/CreateGlucoseReading';
 import Footer from './components/footer/Footer';
 import { useWindowSize } from './hooks/useWindowResize';
 import GlucoseReadingLists from './pages/glucoseReading/components/list/GlucoseReadingLists';
 import SignOut from './pages/signOut/SignOut';
 import { ROUTES } from './constants';
-import { isStandAloneAndRunningOnIos16 } from './utils';
+import { getSvgWidth, isStandAloneAndRunningOnIos16 } from './utils';
 import { greenTheme } from './common/theme';
 import ReadingDetails from './pages/readingDetails';
+import PageNotFoundAnimated from './components/PageNotFoundAnimated';
+import FallBackScreen from './components/fallbackScreen';
 
 const AppWrapper = styled.div`
   height: 100vh;
@@ -70,7 +71,15 @@ const App = () => {
               {isMobileScreen && <Route element={<SignOut />} path={SIGN_OUT} />}
             </Route>
 
-            <Route path='*' element={<PageNotFound />} />
+            <Route path='*' element={(
+              <FallBackScreen
+                title={"Sorry, page not found!"}
+                showCta={true}
+                ctaLink={ROUTES.DASHBOARD}
+                ctaText={"Go to HomePage"}
+                svgComponent={<PageNotFoundAnimated width={getSvgWidth(screenWidth)} />}
+              />
+            )} />
 
           </Routes>
         </AppContainer>

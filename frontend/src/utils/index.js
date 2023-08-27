@@ -61,3 +61,18 @@ export const getFormattedDate = (d) => {
     return moment(d, 'DD-MM-YYYY').format('DD-MMM-YYYY').toString();
   }
 }
+
+export const getSvgWidth = (width) => {
+  //Mobile screens
+  if (width <= 500) {
+    return '100%'
+  }
+  //Tablet screens
+  else if (width >= 501 && width <= 1023) {
+    return '600px'
+  }
+  //Laptops and above screens
+  else {
+    return '900px'
+  }
+}
