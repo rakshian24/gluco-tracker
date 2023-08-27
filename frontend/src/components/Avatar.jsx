@@ -51,7 +51,7 @@ const Avatar = ({ size, handleOnClick }) => {
   }
 
   return (
-    <StyledAvatar size={size} onClick={handleOnClick} isavataractive={conditionForAvatarBGColor}>
+    <StyledAvatar size={size} onClick={handleOnClick} isavataractive={conditionForAvatarBGColor()}>
       {userInfo?.name[0]?.toUpperCase() || 'U'}
     </StyledAvatar>
   )
