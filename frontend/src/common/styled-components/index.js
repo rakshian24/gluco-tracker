@@ -26,6 +26,12 @@ export const FormItem = styled.div`
   margin-bottom: 2rem;
   font-weight: 400;
   color: ${({ theme }) => theme.secondaryColor};
+  
+  .form-input-container{
+    @media screen and (min-width: 501px) and (max-width: 1023px){
+      min-width: 48.5%;
+    }
+  }
 
   input{
     padding: 1.5rem;
@@ -259,4 +265,12 @@ export const TextArea = styled.textarea`
     opacity: 0.5;
     font-size: 1.65rem;
   } 
+`;
+
+export const FormFirstRowContainer = styled.div`
+  @media screen and (min-width: 501px) and (max-width: 1023px){
+    display: flex;
+    align-item: center;
+    justify-content: space-between;
+  }
 `;

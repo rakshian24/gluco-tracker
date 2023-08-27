@@ -2,11 +2,11 @@ import React from 'react';
 import Select from 'react-select';
 import { useTheme } from 'styled-components';
 
-// import { useWindowSize } from '../hooks/useWindowResize';
+import { useWindowSize } from '../hooks/useWindowResize';
 
 const SelectDropdown = ({ selectedValue, setSelectedValue, dropDownOptions, placeholder }) => {
-  // const [screenWidth] = useWindowSize();
-  // const isLargeScreen = screenWidth > 500;
+  const [screenWidth] = useWindowSize();
+  const isLargeScreen = screenWidth > 500;
   const theme = useTheme();
   return <Select
     isSearchable={false}
@@ -29,7 +29,7 @@ const SelectDropdown = ({ selectedValue, setSelectedValue, dropDownOptions, plac
         ...baseStyles,
         minHeight: '5rem',
         height: '5rem',
-        width: '100%',
+        width: isLargeScreen ? '95%' : '100%',
         fontSize: '1.65rem',
         cursor: 'pointer',
         fontFamily: 'inherit',

@@ -9,6 +9,7 @@ import FallBackScreen from '../../components/fallbackScreen';
 import { ROUTES } from '../../constants';
 import NoDataFoundSvgComponent from '../../components/NoDataFoundSvgComponent';
 import { useWindowSize } from '../../hooks/useWindowResize';
+import { ReadingDetailsContainer, ReadingDetailsContentContainer } from './styles';
 
 const ReadingDetails = () => {
   const { date } = useParams();
@@ -20,19 +21,21 @@ const ReadingDetails = () => {
   };
 
   return (
-    <>
+    <ReadingDetailsContainer>
       <PageTitle>Readings for {getFormattedDate(date)}</PageTitle>
-      {!isArrayEmpty(readings) ? readings.map(reading => {
-        return <ReadingDetailsCard key={reading._id} readingObj={reading} />
-      }) : <FallBackScreen
-        title={"No data found for this date."}
-        subtitle={"Please add some readings."}
-        showCta={true}
-        ctaLink={ROUTES.CREATE_READING}
-        ctaText={"Add Reading"}
-        svgComponent={<NoDataFoundSvgComponent width={getSvgWidth(screenWidth)} />}
-      />}
-    </>
+      <ReadingDetailsContentContainer>
+        {!isArrayEmpty(readings) ? readings.map(reading => {
+          return <ReadingDetailsCard key={reading._id} readingObj={reading} />
+        }) : <FallBackScreen
+          title={"No data found for this date."}
+          subtitle={"Please add some readings."}
+          showCta={true}
+          ctaLink={ROUTES.CREATE_READING}
+          ctaText={"Add Reading"}
+          svgComponent={<NoDataFoundSvgComponent width={getSvgWidth(screenWidth)} />}
+        />}
+      </ReadingDetailsContentContainer>
+    </ReadingDetailsContainer>
   )
 }
 

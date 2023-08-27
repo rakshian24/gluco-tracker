@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import { CheckboxLabel, ErrorText, FormButton, FormItem, PageTitle, TextArea } from '../../../../common/styled-components';
+import { CheckboxLabel, ErrorText, FormButton, FormFirstRowContainer, FormItem, PageTitle, TextArea } from '../../../../common/styled-components';
 import { ROUTES, SELECT_DROP_DOWN_OPTIONS } from '../../../../constants';
 import SelectDropdown from '../../../../components/SelectDropdown';
 import { UpdateFormFooterContainer } from '../../../profile/styles';
@@ -97,33 +97,35 @@ const CreateGlucoseReading = () => {
   }
 
   return (
-    <div>
+    <div style={{width: "100%"}}>
       <PageTitle>
         Create Reading
       </PageTitle>
       <form onSubmit={handleSubmit}>
-        <FormItem id="type">
-          <label>Type</label>
-          <SelectDropdown
-            dropDownOptions={SELECT_DROP_DOWN_OPTIONS}
-            selectedValue={selectedValue}
-            setSelectedValue={(val) => handleOnDropDownSelect(val)}
-            placeholder={<div style={{ fontFamily: 'Roboto' }}>Select type</div>}
-          />
-          <ErrorText>{formError.type}</ErrorText>
-        </FormItem>
+        <FormFirstRowContainer>
+          <FormItem id="type">
+            <label>Type</label>
+            <SelectDropdown
+              dropDownOptions={SELECT_DROP_DOWN_OPTIONS}
+              selectedValue={selectedValue}
+              setSelectedValue={(val) => handleOnDropDownSelect(val)}
+              placeholder={<div style={{ fontFamily: 'Roboto' }}>Select type</div>}
+            />
+            <ErrorText>{formError.type}</ErrorText>
+          </FormItem>
 
-        <FormItem id="reading">
-          <label>Reading</label>
-          <input
-            placeholder="Enter your reading"
-            name="reading"
-            type="number"
-            value={formFields.reading}
-            onChange={hanldeInputValueChange}
-          />
-          <ErrorText>{formError.reading}</ErrorText>
-        </FormItem>
+          <FormItem id="reading" className='form-input-container'>
+            <label>Reading</label>
+            <input
+              placeholder="Enter your reading"
+              name="reading"
+              type="number"
+              value={formFields.reading}
+              onChange={hanldeInputValueChange}
+            />
+            <ErrorText>{formError.reading}</ErrorText>
+          </FormItem>
+        </FormFirstRowContainer>
 
         {/* Showing isMedsTaken checkbox only if user has selected AfterBreakfast or AfterDinner as a type */}
         {showIsMedsTakenCheckbox(selectedValue?.value) && (

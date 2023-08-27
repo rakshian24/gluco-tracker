@@ -43,13 +43,13 @@ const { SIGN_UP, SIGN_IN, SIGN_OUT, DASHBOARD, PROFILE, CREATE_READING, LIST_REA
 
 const App = () => {
   const [screenWidth] = useWindowSize();
-  const isMobileScreen = screenWidth <= 500;
+  const isTabScreen = screenWidth <= 1023;
   const { userInfo } = useSelector((state) => state.auth);
   const hasUserInfo = userInfo && Object.keys(userInfo).length > 0;
   return (
     <ThemeProvider theme={greenTheme}>
       <AppWrapper>
-        {!isMobileScreen && <Header />}
+        {!isTabScreen && <Header />}
         <StyledToastContainer />
         <AppContainer style={{ height: isStandAloneAndRunningOnIos16() ? 'calc(100vh - 8.175rem)' : 'calc(100vh - 6.55rem)' }}>
           <Routes>
@@ -68,7 +68,7 @@ const App = () => {
               <Route element={<ReadingDetails />} path={READING_DETAILS} />
 
               {/* This route is only for mobile screen */}
-              {isMobileScreen && <Route element={<SignOut />} path={SIGN_OUT} />}
+              {isTabScreen && <Route element={<SignOut />} path={SIGN_OUT} />}
             </Route>
 
             <Route path='*' element={(
@@ -83,7 +83,7 @@ const App = () => {
 
           </Routes>
         </AppContainer>
-        {isMobileScreen && hasUserInfo && < Footer />}
+        {isTabScreen && hasUserInfo && < Footer />}
       </AppWrapper>
     </ThemeProvider>
   )

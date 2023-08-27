@@ -6,6 +6,10 @@ export const DashboardContainer = styled.div`
   @media screen and (min-width: 1024px){
     padding-top: 1rem;
   }
+
+  @media screen and (min-width: 501px) and (max-width: 1023px){
+    width: 100%;
+  }
 `;
 
 export const DashboardTitle = styled.h1`
@@ -18,5 +22,13 @@ export const DashboardTitle = styled.h1`
 
   @media screen and (min-width: 1024px){
     font-size: 4rem;
+  }
+`;
+
+export const DashboardContentContainer = styled.div`
+  @media screen and (min-width: 501px) and (max-width: 1023px){
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 `;
