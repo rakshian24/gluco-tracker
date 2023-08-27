@@ -8,6 +8,11 @@ export const ListContainer = styled.fieldset`
   margin-bottom: 3rem;
   background: ${({ theme }) => theme.linearGradientColor};
   color: ${({ theme }) => theme.white};
+  min-width: 100%;
+
+  @media screen and (min-width: 501px) and (max-width: 1023px){
+    min-width: 48.5%;
+  }
 `;
 
 export const StyledLegend = styled.legend`

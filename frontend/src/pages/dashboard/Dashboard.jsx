@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { DashboardContainer } from './styles';
+import { DashboardContainer, DashboardContentContainer } from './styles';
 import { PageTitle } from '../../common/styled-components';
 import { useLazyGetReadingsQuery } from '../../slices/readingApiSlice';
 import LoadingSpinner from '../../components/LoadingSpinner';
@@ -30,7 +30,9 @@ const Dashboard = () => {
       <PageTitle>
         Welcome, {userInfo?.name}!
       </PageTitle>
-      {!isArrayEmpty(readings) ? <ReadingList readings={readings} /> : (
+      {!isArrayEmpty(readings) ? (<DashboardContentContainer>
+        <ReadingList readings={readings} />
+      </DashboardContentContainer>) : (
         <FallBackScreen
           title={"No data found."}
           subtitle={"Please add some readings."}
