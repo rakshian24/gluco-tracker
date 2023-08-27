@@ -22,10 +22,21 @@ export const readingApiSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Reading'],
       transformErrorResponse: (response) => formatErrorObject(response),
     }),
+    getReading: builder.query({
+      query: ({ date }) => {
+        return {
+          url: `/api/v1/glucoseReading/${date}`,
+          method: 'GET',
+        }
+      },
+      invalidatesTags: ['Reading'],
+      transformErrorResponse: (response) => formatErrorObject(response),
+    }),
   }),
 });
 
 export const {
   useCreateReadingMutation,
   useLazyGetReadingsQuery,
+  useGetReadingQuery,
 } = readingApiSlice;
