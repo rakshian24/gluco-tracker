@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { CheckboxLabel, ErrorText, FormButton, FormFirstRowContainer, FormItem, PageTitle, TextArea } from '../../../../common/styled-components';
-import { ROUTES, SELECT_DROP_DOWN_OPTIONS } from '../../../../constants';
+import { ROUTES, SELECT_DROP_DOWN_OPTIONS, BUTTON_TYPE } from '../../../../constants';
 import SelectDropdown from '../../../../components/SelectDropdown';
 import { FormFooterContainer } from '../../../profile/styles';
 import { useCreateReadingMutation } from '../../../../slices/readingApiSlice';
@@ -188,7 +188,7 @@ const CreateGlucoseReading = () => {
 
         <FormFooterContainer style={{ marginTop: "3rem" }}>
           <Link to="/dashboard">
-            <FormButton className="form-button" priority='secondary'>
+            <FormButton className="form-button" priority={BUTTON_TYPE.SECONDARY}>
               Cancel
             </FormButton>
           </Link>

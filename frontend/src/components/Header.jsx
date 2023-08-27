@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import Logo from './Logo';
 import BlueDot from './BlueDot';
-import { BUTTON_TYPE } from '../constants';
+import { BUTTON_TYPE, ROUTES } from '../constants';
 import { Button } from '../common/styled-components';
 
 const StyledHeader = styled.header`
@@ -26,17 +26,18 @@ const HeaderRightContainer = styled.div`
 
 const Header = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  const { ADD } = BUTTON_TYPE;
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { TERTIARY } = BUTTON_TYPE;
+  const { CREATE_READING } = ROUTES;
 
   return (
     <StyledHeader>
       <Logo title="Gluco Tracker" />
       <HeaderRightContainer>
-        {userInfo && pathname !== '/reading/create' && <Button
-          buttontype={ADD}
-          onClick={() => navigate('/reading/create')}
+        {userInfo && pathname !== CREATE_READING && <Button
+          buttontype={TERTIARY}
+          onClick={() => navigate(CREATE_READING)}
         >
           Add Reading
         </Button>}

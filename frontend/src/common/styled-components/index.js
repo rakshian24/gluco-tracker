@@ -4,7 +4,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BUTTON_TYPE } from '../../constants';
 
-const { ADD } = BUTTON_TYPE;
+const { PRIMARY, SECONDARY ,TERTIARY } = BUTTON_TYPE;
 
 export const FormHeading = styled.h1`
   color: ${({ theme }) => theme.primaryColor};
@@ -108,9 +108,9 @@ export const FormFooterTextContainer = styled.div`
 export const FormButton = styled.button`
   background: ${({ theme, priority }) => {
     switch (priority) {
-      case 'primary':
+      case PRIMARY:
         return theme.primaryBtnColor;
-      case 'secondary':
+      case SECONDARY:
         return theme.secondaryBtnColor;
       default:
         return theme.primaryBtnColor;
@@ -123,9 +123,9 @@ export const FormButton = styled.button`
   border-radius: 10rem;
   color: ${({ theme, priority }) => {
     switch (priority) {
-      case 'primary':
+      case PRIMARY:
         return theme.primaryBtnTextColor;
-      case 'secondary':
+      case SECONDARY:
         return theme.secondaryBtnTextColor;
       default:
         return theme.primaryBtnTextColor;
@@ -148,9 +148,9 @@ export const FormButton = styled.button`
   &:hover{
     background: ${({ theme, priority }) => {
     switch (priority) {
-      case 'primary':
+      case PRIMARY:
         return theme.primaryBtnHoverColor;
-      case 'secondary':
+      case SECONDARY:
         return theme.secondaryBtnHoverColor;
       default:
         return theme.primaryBtnHoverColor;
@@ -184,37 +184,47 @@ export const Button = styled.button`
   border: none;
   background: ${({ theme, buttontype }) => {
     switch (buttontype) {
-      case 'primary':
+      case PRIMARY:
         return theme.primaryBtnColor;
-      case ADD:
-        return theme.linearGradientColor;
+      case TERTIARY:
+        return 'none';
       default:
         return theme.primaryBtnColor;
     }
   }};
   color: ${({ theme, buttontype }) => {
     switch (buttontype) {
-      case 'primary':
+      case PRIMARY:
         return theme.primaryBtnTextColor;
-      case ADD:
-        return theme.primaryBtnTextColor;
+      case TERTIARY:
+        return theme.primaryColor;
       default:
         return theme.primaryBtnTextColor
     }
   }};
   font-weight: 700;
   border-radius: 7px;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  box-shadow: 
+  box-shadow: ${({buttontype }) => {
+    switch (buttontype) {
+      case PRIMARY:
+        return 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;';
+      case TERTIARY:
+        return 'none';
+      default:
+        return 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;'
+    }
+  }};
   padding: 3px 11px;
   font-size: 16px;
 
   &:hover{
     background: ${({ theme, buttontype }) => {
     switch (buttontype) {
-      case 'primary':
+      case PRIMARY:
         return theme.primaryBtnHoverColor;
-      case ADD:
-        return theme.primaryBtnHoverColor;
+      case TERTIARY:
+        return theme.lightGrey;
       default:
         return theme.primaryBtnHoverColor;
     }
@@ -226,7 +236,7 @@ export const Button = styled.button`
   }
 
   @media screen and (min-width: 1025px){
-    padding: 5px 10px;
+    padding: 1rem 2rem;
     font-size: 20px;
   }
 `;

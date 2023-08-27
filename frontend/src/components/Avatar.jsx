@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import { ROUTES } from '../constants';
+import { useWindowSize } from '../hooks/useWindowResize';
 
 const StyledAvatar = styled.div([], props => ({
   display: 'flex',
@@ -35,8 +36,22 @@ const StyledAvatar = styled.div([], props => ({
 const Avatar = ({ size, handleOnClick }) => {
   const { pathname } = useLocation();
   const { userInfo } = useSelector((state) => state.auth);
+  const [screenWidth] = useWindowSize();
+
+  const conditionForAvatarBGColor = () => {
+    if(screenWidth < 1023){
+      if(pathname === ROUTES.SIGN_OUT){
+        return 'true'
+      }else{
+        return 'false'
+      }
+    }else{
+      return 'true'
+    }
+  }
+
   return (
-    <StyledAvatar size={size} onClick={handleOnClick} isavataractive={pathname === ROUTES.SIGN_OUT ? 'true' : 'false'}>
+    <StyledAvatar size={size} onClick={handleOnClick} isavataractive={conditionForAvatarBGColor}>
       {userInfo?.name[0]?.toUpperCase() || 'U'}
     </StyledAvatar>
   )

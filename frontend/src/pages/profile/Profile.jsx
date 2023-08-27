@@ -8,6 +8,7 @@ import { ErrorText, FormButton, FormItem } from '../../common/styled-components'
 import { useUpdateUserDetailsMutation } from '../../slices/userApiSlice';
 import { setCredentials } from '../../slices/authSlice';
 import LoadingSpinner from '../../components/LoadingSpinner';
+import { BUTTON_TYPE } from '../../constants';
 
 const Profile = () => {
   const { userInfo } = useSelector((state) => state.auth);
@@ -83,7 +84,7 @@ const Profile = () => {
 
           <FormFooterContainer>
             <Link to="/dashboard">
-              <FormButton className="form-button" priority='secondary'>
+              <FormButton className="form-button" priority={BUTTON_TYPE.SECONDARY}>
                 Cancel
               </FormButton>
             </Link>

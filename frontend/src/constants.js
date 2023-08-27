@@ -7,8 +7,9 @@ export const GET_ALL_FOODS_URL = '/api/v1/foods/all';
 export const CREATE_FOOD_URL = '/api/v1/foods';
 
 export const BUTTON_TYPE = {
-  ADD: 'ADD',
-  REMOVE: 'REMOVE'
+  PRIMARY: 'PRIMARY',
+  SECONDARY: 'SECONDARY',
+  TERTIARY: 'TERTIARY'
 };
 
 export const ROUTES = {
