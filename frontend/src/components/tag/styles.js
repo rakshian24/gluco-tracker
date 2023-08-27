@@ -10,7 +10,8 @@ export const StyledTag = styled.div`
   margin-right: 1rem;
   display: flex;
   align-items: center;
-  margin: 0.35rem 0.5rem;
+  margin: 0.35rem 0;
+  margin-right: 1rem;
 
   .close-icon {
     cursor: pointer;

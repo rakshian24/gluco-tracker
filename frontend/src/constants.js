@@ -46,3 +46,12 @@ export const SELECT_DROP_DOWN_OPTIONS = [{
   label: 'After dinner',
   value: 'AD',
 }];
+
+export const TYPES_MAP = {
+  BB: 'Before breakfast',
+  AB: 'After breakfast',
+  BL: 'Before Lunch',
+  AL: 'After Lunch',
+  BD: 'Before Dinner',
+  AD: 'After Dinner',
+}
