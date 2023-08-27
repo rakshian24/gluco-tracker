@@ -1,4 +1,5 @@
 import asyncHandler from "express-async-handler";
+import moment from "moment";
 
 import User from "../models/userModel.js";
 import GlucoReading from "../models/glucoReadingModel.js";
@@ -104,7 +105,33 @@ const getAllReadings = asyncHandler(async (req, res) => {
   }
 });
 
+// description  Get glucose readings for a passed date.
+// route        GET /api/v1/glucoseReading/:date
+// access       Private
+const getReadingsForDate = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const { date } = req.params;
+
+  let startDate = moment(date, "DD-MM-YYYY").startOf('day').toDate();
+  const endDate = moment(date, "DD-MM-YYYY").endOf('day').toDate();
+
+  if (user) {
+    const readings = await GlucoReading.find({
+      userId: user._id,
+      createdAt: {
+        $gte: startDate,
+        $lt: endDate
+      }
+    }).populate('consumedFoods');
+
+    res.status(200).json(readings);
+  } else {
+    throw new AppError('User not found', 404);
+  }
+});
+
 export {
   createReading,
-  getAllReadings
+  getAllReadings,
+  getReadingsForDate
 }

@@ -20,6 +20,7 @@ import SignOut from './pages/signOut/SignOut';
 import { ROUTES } from './constants';
 import { isStandAloneAndRunningOnIos16 } from './utils';
 import { greenTheme } from './common/theme';
+import ReadingDetails from './pages/readingDetails';
 
 const AppWrapper = styled.div`
   height: 100vh;
@@ -37,7 +38,7 @@ const AppContainer = styled.div`
   }
 `;
 
-const { SIGN_UP, SIGN_IN, SIGN_OUT, DASHBOARD, PROFILE, CREATE_READING, LIST_READINGS } = ROUTES;
+const { SIGN_UP, SIGN_IN, SIGN_OUT, DASHBOARD, PROFILE, CREATE_READING, LIST_READINGS, READING_DETAILS } = ROUTES;
 
 const App = () => {
   const [screenWidth] = useWindowSize();
@@ -63,6 +64,7 @@ const App = () => {
               <Route element={<Profile />} path={PROFILE} />
               <Route element={<CreateGlucoseReading />} path={CREATE_READING} />
               <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />
+              <Route element={<ReadingDetails />} path={READING_DETAILS} />
 
               {/* This route is only for mobile screen */}
               {isMobileScreen && <Route element={<SignOut />} path={SIGN_OUT} />}

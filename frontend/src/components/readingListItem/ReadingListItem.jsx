@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { getFormattedDate, getReadingsObjectByType } from '../../utils';
 import { HeaderCell, ListContainer, ListContentContainer, ListItemCol, ListItemRow, StyledLegend, ValueCell } from './styles';
 
 const ReadingListItem = ({ reading }) => {
+  const navigate = useNavigate();
   const date = getFormattedDate(reading._id);
   const dayReadingsArr = reading.results;
   const readingsObjByType = getReadingsObjectByType(dayReadingsArr);
@@ -11,8 +14,12 @@ const ReadingListItem = ({ reading }) => {
     return readingsObjByType?.[readingType]?.reading || '-'
   }
 
+  const handleOnReadingCardClick = () => {
+    navigate(`/reading/${reading._id}`)
+  }
+
   return (
-    <ListContainer>
+    <ListContainer onClick={handleOnReadingCardClick}>
       <StyledLegend>{date}</StyledLegend>
       <ListContentContainer>
 
