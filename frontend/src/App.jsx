@@ -18,7 +18,7 @@ import GlucoseReadingLists from './pages/glucoseReading/components/list/GlucoseR
 import SignOut from './pages/signOut/SignOut';
 import { ROUTES } from './constants';
 import { getSvgWidth, isStandAloneAndRunningOnIos16 } from './utils';
-import { greenTheme } from './common/theme';
+import { appThemes } from './common/theme';
 import ReadingDetails from './pages/readingDetails';
 import PageNotFoundAnimated from './components/PageNotFoundAnimated';
 import FallBackScreen from './components/fallbackScreen';
@@ -55,8 +55,10 @@ const App = () => {
   const isTabScreen = screenWidth <= 1023;
   const { userInfo } = useSelector((state) => state.auth);
   const hasUserInfo = userInfo && Object.keys(userInfo).length > 0;
+  const { theme } = useSelector((state) => state.theme);
+
   return (
-    <ThemeProvider theme={greenTheme}>
+    <ThemeProvider theme={appThemes[theme]}>
       <AppWrapper>
         {!isTabScreen && <Header />}
         <StyledToastContainer />

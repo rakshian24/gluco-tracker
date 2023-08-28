@@ -55,4 +55,14 @@ export const TYPES_MAP = {
   AL: 'After Lunch',
   BD: 'Before Dinner',
   AD: 'After Dinner',
+};
+
+export const themes = {
+  green: 'green',
+  violet: 'violet'
+}
+
+export const themes_color_map = {
+  green: '#4AB9A4',
+  violet: 'linear-gradient( 88.7deg,  rgba(207,150,207,1) -2.4%, rgba(107,116,179,1) 102% )'
 }
