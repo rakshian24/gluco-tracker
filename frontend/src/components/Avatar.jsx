@@ -9,7 +9,7 @@ import { useWindowSize } from '../hooks/useWindowResize';
 const StyledAvatar = styled.div([], props => ({
   display: 'flex',
   borderRadius: '50%',
-  background: props.isavataractive === 'true' ? '#4ab9a4' : '#D7D8D9',
+  background: props.isavataractive === 'true' ? props.theme.linearGradientColor : '#D7D8D9',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
