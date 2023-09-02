@@ -1,7 +1,7 @@
-import React from 'react'
-import { useGetReadingQuery } from '../../slices/readingApiSlice';
-import LoadingSpinner from '../../components/LoadingSpinner';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
+import LoadingSpinner from '../../components/LoadingSpinner';
 import { PageTitle } from '../../common/styled-components';
 import { getFormattedDate, getSvgWidth, isArrayEmpty } from '../../utils';
 import ReadingDetailsCard from '../../components/readingDetailsCard';
@@ -10,11 +10,16 @@ import { ROUTES } from '../../constants';
 import NoDataFoundSvgComponent from '../../components/NoDataFoundSvgComponent';
 import { useWindowSize } from '../../hooks/useWindowResize';
 import { ReadingDetailsContainer, ReadingDetailsContentContainer } from './styles';
+import { useFetchReadingDetails } from '../../common/slices';
 
 const ReadingDetails = () => {
   const { date } = useParams();
   const [screenWidth] = useWindowSize();
-  const { data: readings, isLoading } = useGetReadingQuery({ date });
+  const [readings, { fetchReadingsDetailsInit, isLoading }] = useFetchReadingDetails();
+
+  useEffect(() => {
+    fetchReadingsDetailsInit(date)
+  }, [])
 
   if (isLoading) {
     return <LoadingSpinner />

@@ -5,7 +5,6 @@ export const API_ENDPOINTS = {
   PROFILE: '/api/v1/users/profile',
   READING_URL: '/api/v1/glucoseReading',
   GET_ALL_READING_URL: '/api/v1/glucoseReading/all',
-  GET_READING_URL: '/api/v1/glucoseReading/:date',
   GET_ALL_FOODS_URL: '/api/v1/foods/all',
   CREATE_FOOD_URL: '/api/v1/foods'
 }

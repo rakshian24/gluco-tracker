@@ -23,3 +23,7 @@ export { default as createReading } from './createReading/reducer';
 export { default as useFetchReadings } from './readings/useFetchReadings';
 export { default as fetchReadingsSaga } from './readings/saga';
 export { default as readings } from './readings/reducer';
+
+export { default as useFetchReadingDetails } from './readingDetails/useFetchReadingDetails';
+export { default as fetchReadingDetailsSaga } from './readingDetails/saga';
+export { default as readingDetails } from './readingDetails/reducer';
