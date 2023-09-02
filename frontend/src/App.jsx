@@ -18,7 +18,7 @@ import { useWindowSize } from './hooks/useWindowResize';
 import { ROUTES, themes } from './constants';
 import { getSvgWidth, isStandAloneAndRunningOnIos16 } from './utils';
 import { appThemes } from './common/theme';
-// import ReadingDetails from './pages/readingDetails';
+import ReadingDetails from './pages/readingDetails';
 import PageNotFoundAnimated from './components/PageNotFoundAnimated';
 import FallBackScreen from './components/fallbackScreen';
 import { useAuth, useTheme } from './common/slices';
@@ -56,7 +56,7 @@ const App = () => {
   const [userInfo] = useAuth();
   const [theme] = useTheme();
   // const hasUserInfo = userInfo && Object.keys(userInfo).length > 0;
-  
+
   return (
     <ThemeProvider theme={appThemes[theme]}>
       <AppWrapper>
@@ -75,8 +75,8 @@ const App = () => {
               <Route element={<Dashboard />} path={DASHBOARD} />
               {/* <Route element={<Profile />} path={PROFILE} /> */}
               <Route element={<CreateGlucoseReading />} path={CREATE_READING} />
-              {/* <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />
-              <Route element={<ReadingDetails />} path={READING_DETAILS} /> */}
+              {/* <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />*/}
+              <Route element={<ReadingDetails />} path={READING_DETAILS} />
 
               {/* This route is only for mobile screen */}
               {/* {isTabScreen && <Route element={<SignOut />} path={SIGN_OUT} />} */}
