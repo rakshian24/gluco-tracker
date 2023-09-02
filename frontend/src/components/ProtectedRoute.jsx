@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useAuth } from '../common/slices';
+import { ROUTES } from '../constants';
 
 const ProtectedRoute = () => {
-  const { userInfo } = useSelector((state) => state.auth);
-  return userInfo ? <Outlet /> : <Navigate to='/sign-in' replace />;
+  const [userInfo] = useAuth();
+  return userInfo ? <Outlet /> : <Navigate to={ROUTES.SIGN_IN} replace />;
 };
 export default ProtectedRoute;

@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 import Avatar from './Avatar';
-import { Link } from 'react-router-dom';
-import { useSignOutMutation } from '../slices/userApiSlice';
-import { clearCredentials } from '../slices/authSlice';
+import { useSignOut } from '../common/slices';
+import LoadingSpinner from './LoadingSpinner';
 
 const BlueDotContainer = styled.div`
   margin-left: 0;
@@ -82,24 +81,24 @@ const SignOutButton = styled.button`
 
 const BlueDot = ({ userInfo }) => {
   const [isBlueDotClicked, setIsBlueDotClicked] = useState(false);
+  const [{ isLoading, signOutInit, signOutError }] = useSignOut();
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [signOut] = useSignOutMutation();
+  useEffect(() => {
+    if (signOutError && typeof (signOutError) === 'string') {
+      toast.error(signOutError)
+    }
+  }, [signOutError])
 
   const handleSignOut = async () => {
-    try {
-      await signOut().unwrap();
-      dispatch(clearCredentials());
-      navigate('/sign-in');
-    } catch (err) {
-      console.error(err);
-    }
+    signOutInit()
   };
 
   const handleBlueDotClick = () => {
     setIsBlueDotClicked(!isBlueDotClicked)
+  }
+
+  if (isLoading) {
+    return <LoadingSpinner />
   }
 
   return (

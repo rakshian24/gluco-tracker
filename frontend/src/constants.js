@@ -1,10 +1,14 @@
-// API endpoints for resources
-export const USERS_URL = '/api/v1/users';
-export const READING_URL = '/api/v1/glucoseReading';
-export const GET_ALL_READING_URL = '/api/v1/glucoseReading/all';
-export const GET_READING_URL = '/api/v1/glucoseReading/:date';
-export const GET_ALL_FOODS_URL = '/api/v1/foods/all';
-export const CREATE_FOOD_URL = '/api/v1/foods';
+export const API_ENDPOINTS = {
+  SIGN_UP: '/api/v1/users',
+  SIGN_IN: '/api/v1/users/signIn',
+  SIGN_OUT: '/api/v1/users/signOut',
+  PROFILE: '/api/v1/users/profile',
+  READING_URL: '/api/v1/glucoseReading',
+  GET_ALL_READING_URL: '/api/v1/glucoseReading/all',
+  GET_READING_URL: '/api/v1/glucoseReading/:date',
+  GET_ALL_FOODS_URL: '/api/v1/foods/all',
+  CREATE_FOOD_URL: '/api/v1/foods'
+}
 
 export const BUTTON_TYPE = {
   PRIMARY: 'PRIMARY',

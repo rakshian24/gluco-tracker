@@ -9,12 +9,12 @@ export const isJson = (str) => {
   return true;
 }
 
-export const formatErrorObject = (response) => {
-  const message = response?.data?.message || '';
+export const formatErrorObject = (error) => {
+  const message = error?.response?.data?.message || '';
   return {
-    ...response,
+    ...error?.response,
     data: {
-      ...response.data,
+      ...error?.response?.data,
       message: isJson(message) ? JSON.parse(message) : message
     }
   }
