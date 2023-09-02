@@ -6,11 +6,10 @@ import { CheckboxLabel, ErrorText, FormButton, FormFirstRowContainer, FormItem, 
 import { ROUTES, SELECT_DROP_DOWN_OPTIONS, BUTTON_TYPE } from '../../../../constants';
 import SelectDropdown from '../../../../components/SelectDropdown';
 import { FormFooterContainer } from '../../../profile/styles';
-import { useCreateReadingMutation } from '../../../../slices/readingApiSlice';
 import LoadingSpinner from '../../../../components/LoadingSpinner';
-import { showConsumedFoodsTagBox, showIsMedsTakenCheckbox } from '../../../../utils';
-import { useLazyGetFoodsQuery } from '../../../../slices/foodApiSlice';
-import MultiSelectBox from '../../../../components/MultiSelectBox';
+import { isArrayEmpty, isObjectEmpty, showConsumedFoodsTagBox, showIsMedsTakenCheckbox } from '../../../../utils';
+import { useCreateReading } from '../../../../common/slices';
+// import MultiSelectBox from '../../../../components/MultiSelectBox';
 
 const defaultFormFields = {
   type: '',
@@ -28,18 +27,22 @@ const CreateGlucoseReading = () => {
   const [selectedMultiValue, setSelectedMultiValue] = useState([])
   const navigate = useNavigate();
 
-  const [createReading, { isLoading, error: { data: { message: errorMessageObject = {} } = {} } = {} }] = useCreateReadingMutation();
-  const [trigger, { data: foods, isLoading: isFoodsLoading }] = useLazyGetFoodsQuery();
+  const [newReading, { createReadingInit, isLoading, createReadingError }] = useCreateReading();
 
   useEffect(() => {
-    trigger();
-  }, [trigger])
-
-  useEffect(() => {
-    if (errorMessageObject && Object.keys(errorMessageObject).length > 0) {
-      setFormError(errorMessageObject);
+    if (!isObjectEmpty(newReading)) {
+      navigate(ROUTES.DASHBOARD);
     }
-  }, [errorMessageObject]);
+  }, [newReading])
+
+  useEffect(() => {
+    if (createReadingError && typeof (createReadingError) === 'string') {
+      toast.error(createReadingError)
+    }
+    if (createReadingError && !isArrayEmpty(Object.keys(createReadingError))) {
+      setFormError(createReadingError)
+    }
+  }, [createReadingError])
 
 
   const handleSubmit = async (e) => {
@@ -51,12 +54,7 @@ const CreateGlucoseReading = () => {
       ...(showIsMedsTakenCheckbox(selectedValue?.value) && { isMedsTaken: isMedsTakenCheckBoxValue }),
       consumedFoods: selectedMultiValue.map(foodsObj => foodsObj._id)
     }
-    try {
-      await createReading({ ...payload }).unwrap();
-      navigate(ROUTES.DASHBOARD);
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
-    }
+    createReadingInit(payload)
   }
 
   const hanldeInputValueChange = (event) => {
@@ -92,12 +90,12 @@ const CreateGlucoseReading = () => {
     setFormError({ ...formError, consumedFoods: err?.data?.message?.value })
   }
 
-  if (isLoading || isFoodsLoading) {
+  if (isLoading) {
     return <LoadingSpinner />
   }
 
   return (
-    <div style={{width: "100%"}}>
+    <div style={{ width: "100%" }}>
       <PageTitle>
         Create Reading
       </PageTitle>
@@ -158,11 +156,11 @@ const CreateGlucoseReading = () => {
           <ErrorText>{formError.isExercised}</ErrorText>
         </FormItem>
 
-        {showConsumedFoodsTagBox(selectedValue?.value) && (
+        {/* {showConsumedFoodsTagBox(selectedValue?.value) && (
           <FormItem id="consumedFoods">
             <label>Foods consumed</label>
             <MultiSelectBox
-              options={foods}
+              options={[]}
               selected={selectedMultiValue}
               setSelected={setSelectedMultiValue}
               handleOnMultiSelectChange={handleOnMultiSelectChange}
@@ -171,7 +169,7 @@ const CreateGlucoseReading = () => {
             />
             <ErrorText>{formError.consumedFoods}</ErrorText>
           </FormItem>
-        )}
+        )} */}
 
         <FormItem id="description">
           <label>Description</label>

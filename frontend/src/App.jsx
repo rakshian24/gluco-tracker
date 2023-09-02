@@ -10,7 +10,7 @@ import Home from './pages/home/Home';
 import { StyledToastContainer } from './common/styled-components';
 import ProtectedRoute from './components/ProtectedRoute';
 // import Profile from './pages/profile/Profile';
-// import CreateGlucoseReading from './pages/glucoseReading/components/create/CreateGlucoseReading';
+import CreateGlucoseReading from './pages/glucoseReading/components/create/CreateGlucoseReading';
 // import Footer from './components/footer/Footer';
 import { useWindowSize } from './hooks/useWindowResize';
 // import GlucoseReadingLists from './pages/glucoseReading/components/list/GlucoseReadingLists';
@@ -73,9 +73,9 @@ const App = () => {
             {/* Protected routes */}
             <Route path='' element={<ProtectedRoute />}>
               <Route element={<Dashboard />} path={DASHBOARD} />
-              {/* <Route element={<Profile />} path={PROFILE} />
+              {/* <Route element={<Profile />} path={PROFILE} /> */}
               <Route element={<CreateGlucoseReading />} path={CREATE_READING} />
-              <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />
+              {/* <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />
               <Route element={<ReadingDetails />} path={READING_DETAILS} /> */}
 
               {/* This route is only for mobile screen */}
