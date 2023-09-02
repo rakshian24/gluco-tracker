@@ -1,29 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DashboardContainer, DashboardContentContainer } from './styles';
 import { PageTitle } from '../../common/styled-components';
 import LoadingSpinner from '../../components/LoadingSpinner';
-// import ReadingList from '../../components/readingList/ReadingList';
-// import { getSvgWidth, isArrayEmpty } from '../../utils';
-// import NoDataFoundSvgComponent from '../../components/NoDataFoundSvgComponent';
+import ReadingList from '../../components/readingList/ReadingList';
+import { getSvgWidth, isArrayEmpty } from '../../utils';
+import NoDataFoundSvgComponent from '../../components/NoDataFoundSvgComponent';
 import { useWindowSize } from '../../hooks/useWindowResize';
-// import FallBackScreen from '../../components/fallbackScreen';
-// import { ROUTES } from '../../constants';
-import { useAuth } from '../../common/slices';
+import FallBackScreen from '../../components/fallbackScreen';
+import { ROUTES } from '../../constants';
+import { useAuth, useFetchReadings } from '../../common/slices';
 
 const Dashboard = () => {
   const [screenWidth] = useWindowSize();
   const [userInfo] = useAuth();
 
-  // if (isLoading) {
-  //   return <LoadingSpinner />
-  // }
+  const [readings, { fetchReadingsInit, isLoading }] = useFetchReadings();
+
+  useEffect(() => {
+    fetchReadingsInit();
+  }, [])
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
 
   return (
     <DashboardContainer>
       <PageTitle>
         Welcome, {userInfo?.name}!
       </PageTitle>
-      {/* {!isArrayEmpty(readings) ? (<DashboardContentContainer>
+      {!isArrayEmpty(readings) ? (<DashboardContentContainer>
         <ReadingList readings={readings} />
       </DashboardContentContainer>) : (
         <FallBackScreen
@@ -34,7 +40,7 @@ const Dashboard = () => {
           ctaText={"Add Reading"}
           svgComponent={<NoDataFoundSvgComponent width={getSvgWidth(screenWidth)} />}
         />
-      )} */}
+      )}
     </DashboardContainer>
   )
 }

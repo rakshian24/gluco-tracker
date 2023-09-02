@@ -19,3 +19,7 @@ export { default as theme } from './theme/reducer';
 export { default as useCreateReading } from './createReading/useCreateReading';
 export { default as createReadingSaga } from './createReading/saga';
 export { default as createReading } from './createReading/reducer';
+
+export { default as useFetchReadings } from './readings/useFetchReadings';
+export { default as fetchReadingsSaga } from './readings/saga';
+export { default as readings } from './readings/reducer';
