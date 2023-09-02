@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { styled, ThemeProvider } from 'styled-components';
-import { useSelector } from 'react-redux';
 
 import Header from './components/Header';
 import SignUp from './components/SignUp';
@@ -10,18 +9,19 @@ import Dashboard from './pages/dashboard/Dashboard';
 import Home from './pages/home/Home';
 import { StyledToastContainer } from './common/styled-components';
 import ProtectedRoute from './components/ProtectedRoute';
-import Profile from './pages/profile/Profile';
-import CreateGlucoseReading from './pages/glucoseReading/components/create/CreateGlucoseReading';
-import Footer from './components/footer/Footer';
+// import Profile from './pages/profile/Profile';
+// import CreateGlucoseReading from './pages/glucoseReading/components/create/CreateGlucoseReading';
+// import Footer from './components/footer/Footer';
 import { useWindowSize } from './hooks/useWindowResize';
-import GlucoseReadingLists from './pages/glucoseReading/components/list/GlucoseReadingLists';
-import SignOut from './pages/signOut/SignOut';
-import { ROUTES } from './constants';
+// import GlucoseReadingLists from './pages/glucoseReading/components/list/GlucoseReadingLists';
+// import SignOut from './pages/signOut/SignOut';
+import { ROUTES, themes } from './constants';
 import { getSvgWidth, isStandAloneAndRunningOnIos16 } from './utils';
 import { appThemes } from './common/theme';
-import ReadingDetails from './pages/readingDetails';
+// import ReadingDetails from './pages/readingDetails';
 import PageNotFoundAnimated from './components/PageNotFoundAnimated';
 import FallBackScreen from './components/fallbackScreen';
+import { useAuth } from './common/slices';
 
 const AppWrapper = styled.div`
   height: 100vh;
@@ -53,12 +53,12 @@ const { SIGN_UP, SIGN_IN, SIGN_OUT, DASHBOARD, PROFILE, CREATE_READING, LIST_REA
 const App = () => {
   const [screenWidth] = useWindowSize();
   const isTabScreen = screenWidth <= 1023;
-  const { userInfo } = useSelector((state) => state.auth);
-  const hasUserInfo = userInfo && Object.keys(userInfo).length > 0;
-  const { theme } = useSelector((state) => state.theme);
+  const [userInfo] = useAuth();
+  // const hasUserInfo = userInfo && Object.keys(userInfo).length > 0;
+  // const { theme } = useSelector((state) => state.theme);
 
   return (
-    <ThemeProvider theme={appThemes[theme]}>
+    <ThemeProvider theme={appThemes[themes.green]}>
       <AppWrapper>
         {!isTabScreen && <Header />}
         <StyledToastContainer />
@@ -73,13 +73,13 @@ const App = () => {
             {/* Protected routes */}
             <Route path='' element={<ProtectedRoute />}>
               <Route element={<Dashboard />} path={DASHBOARD} />
-              <Route element={<Profile />} path={PROFILE} />
+              {/* <Route element={<Profile />} path={PROFILE} />
               <Route element={<CreateGlucoseReading />} path={CREATE_READING} />
               <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />
-              <Route element={<ReadingDetails />} path={READING_DETAILS} />
+              <Route element={<ReadingDetails />} path={READING_DETAILS} /> */}
 
               {/* This route is only for mobile screen */}
-              {isTabScreen && <Route element={<SignOut />} path={SIGN_OUT} />}
+              {/* {isTabScreen && <Route element={<SignOut />} path={SIGN_OUT} />} */}
             </Route>
 
             <Route path='*' element={(
@@ -94,7 +94,7 @@ const App = () => {
 
           </Routes>
         </AppContainer>
-        {isTabScreen && hasUserInfo && < Footer />}
+        {/* {isTabScreen && hasUserInfo && < Footer />} */}
       </AppWrapper>
     </ThemeProvider>
   )

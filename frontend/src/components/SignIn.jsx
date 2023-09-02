@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { ErrorText, FormButton, FormFooterTextContainer, FormHeading, FormItem, StyledLink } from '../common/styled-components';
-import { useSignInMutation } from '../slices/userApiSlice';
-import { setCredentials } from '../slices/authSlice';
 import LoadingSpinner from './LoadingSpinner';
+import { ROUTES } from '../constants';
+import { useAuth, useSignIn } from '../common/slices';
+import { isArrayEmpty } from '../utils';
 
 const defaultFormFields = {
   email: "",
@@ -17,32 +17,28 @@ const SignIn = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [formError, setFormError] = useState({});
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userInfo } = useSelector((state) => state.auth);
-  const [signIn, { isLoading, error: { data: { message: errorMessageObject = {} } = {} } = {} }] = useSignInMutation();
+  const [{ isLoading, signInInit, signInError, signInSuccess }] = useSignIn();
+  const [userInfo] = useAuth();
 
   useEffect(() => {
-    if (errorMessageObject && Object.keys(errorMessageObject).length > 0) {
-      setFormError(errorMessageObject);
+    if (signInError && typeof (signInError) === 'string') {
+      toast.error(signInError)
     }
-  }, [errorMessageObject]);
+    if (signInError && !isArrayEmpty(Object.keys(signInError))) {
+      setFormError(signInError)
+    }
+  }, [signInError])
 
   useEffect(() => {
-    if (userInfo) {
-      navigate('/dashboard');
+    if (signInSuccess || userInfo) {
+      navigate(ROUTES.DASHBOARD);
     }
-  }, [navigate, userInfo]);
+  }, [navigate, signInSuccess, userInfo]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const res = await signIn({ ...formFields }).unwrap();
-      dispatch(setCredentials({ ...res }));
-      navigate('/dashboard');
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
-    }
+    signInInit({ ...formFields });
   };
 
   const hanldeInputValueChange = (event) => {

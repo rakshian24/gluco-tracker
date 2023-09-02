@@ -4,7 +4,10 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import store from './store';
+import { configureStore } from './store';
+import { initialState } from './initialState';
+
+const store = configureStore(initialState);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

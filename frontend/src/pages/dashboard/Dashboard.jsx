@@ -1,36 +1,29 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { DashboardContainer, DashboardContentContainer } from './styles';
 import { PageTitle } from '../../common/styled-components';
-import { useLazyGetReadingsQuery } from '../../slices/readingApiSlice';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import ReadingList from '../../components/readingList/ReadingList';
-import { getSvgWidth, isArrayEmpty } from '../../utils';
-import NoDataFoundSvgComponent from '../../components/NoDataFoundSvgComponent';
+// import ReadingList from '../../components/readingList/ReadingList';
+// import { getSvgWidth, isArrayEmpty } from '../../utils';
+// import NoDataFoundSvgComponent from '../../components/NoDataFoundSvgComponent';
 import { useWindowSize } from '../../hooks/useWindowResize';
-import FallBackScreen from '../../components/fallbackScreen';
-import { ROUTES } from '../../constants';
+// import FallBackScreen from '../../components/fallbackScreen';
+// import { ROUTES } from '../../constants';
+import { useAuth } from '../../common/slices';
 
 const Dashboard = () => {
   const [screenWidth] = useWindowSize();
-  const { userInfo } = useSelector((state) => state.auth);
-  const [trigger, { data: readings, isLoading }] = useLazyGetReadingsQuery();
+  const [userInfo] = useAuth();
 
-  //usLazyQuery with trigger will call the api irrespective of cache.
-  useEffect(() => {
-    trigger();
-  }, [trigger])
-
-  if (isLoading) {
-    return <LoadingSpinner />
-  }
+  // if (isLoading) {
+  //   return <LoadingSpinner />
+  // }
 
   return (
     <DashboardContainer>
       <PageTitle>
         Welcome, {userInfo?.name}!
       </PageTitle>
-      {!isArrayEmpty(readings) ? (<DashboardContentContainer>
+      {/* {!isArrayEmpty(readings) ? (<DashboardContentContainer>
         <ReadingList readings={readings} />
       </DashboardContentContainer>) : (
         <FallBackScreen
@@ -41,7 +34,7 @@ const Dashboard = () => {
           ctaText={"Add Reading"}
           svgComponent={<NoDataFoundSvgComponent width={getSvgWidth(screenWidth)} />}
         />
-      )}
+      )} */}
     </DashboardContainer>
   )
 }

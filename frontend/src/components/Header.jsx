@@ -7,7 +7,7 @@ import Logo from './Logo';
 import BlueDot from './BlueDot';
 import { BUTTON_TYPE, ROUTES, themes, themes_color_map } from '../constants';
 import { Button } from '../common/styled-components';
-import { setTheme } from '../slices/themeSlice';
+import { useAuth } from '../common/slices';
 
 const { green, violet } = themes;
 const { TERTIARY } = BUTTON_TYPE;
@@ -56,20 +56,20 @@ const ThemeSelector = styled.div`
 `;
 
 const Header = () => {
-  const { userInfo } = useSelector((state) => state.auth);
+  const [userInfo] = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const dispatch = useDispatch();
 
-  const handleOnThemeSelectorClick = (color) => {
-    dispatch(setTheme(color))
-  }
+  // const handleOnThemeSelectorClick = (color) => {
+  //   dispatch(setTheme(color))
+  // }
 
   return (
     <StyledHeader>
       <Logo title="Gluco Tracker" />
       <HeaderRightContainer>
-        <ThemeSelectorContainer>
+        {/* <ThemeSelectorContainer>
           <ThemeSelector type={violet} onClick={() => handleOnThemeSelectorClick(violet)} />
           <ThemeSelector type={green} onClick={() => handleOnThemeSelectorClick(green)} />
         </ThemeSelectorContainer>
@@ -78,7 +78,7 @@ const Header = () => {
           onClick={() => navigate(CREATE_READING)}
         >
           Add Reading
-        </Button>}
+        </Button>} */}
         {userInfo && <BlueDot userInfo={userInfo} />}
       </HeaderRightContainer>
     </StyledHeader>

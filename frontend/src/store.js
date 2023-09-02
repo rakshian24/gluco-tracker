@@ -1,16 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './slices/authSlice';
-import themeReducer from './slices/themeSlice';
-import { apiSlice } from './slices/apiSlice';
+import { applyMiddleware, compose, createStore } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './rootSaga';
+import rootReducer from './rootReducer';
 
-const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    theme: themeReducer,
-    [apiSlice.reducerPath]: apiSlice.reducer
-  },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: true,
-});
+const sagaMiddleware = createSagaMiddleware();
 
-export default store;
+export function configureStore(initialState) {
+  const middleware = [sagaMiddleware];
+
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const store = createStore(rootReducer, initialState, composeEnhancers(applyMiddleware(...middleware)));
+
+  sagaMiddleware.run(rootSaga);
+
+  return store;
+}
