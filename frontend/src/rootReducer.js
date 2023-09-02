@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { signup, auth, signIn, signOut, theme, createReading } from "./common/slices";
+import { signup, auth, signIn, signOut, theme, createReading, readings } from "./common/slices";
 
 export default combineReducers({
   signup,
@@ -7,5 +7,6 @@ export default combineReducers({
   signIn,
   signOut,
   theme,
-  createReading
+  createReading,
+  readings
 });
