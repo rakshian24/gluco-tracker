@@ -42,6 +42,10 @@ export const isArrayEmpty = (arr) => {
   return arr && arr.length > 0 ? false : true
 };
 
+export const isObjectEmpty = (obj) => {
+  return obj && Object.keys(obj).length > 0 ? false : true
+};
+
 export const getReadingsObjectByType = (readingsArr) => {
   const readingsObj = {};
   readingsArr.forEach(reading => {
