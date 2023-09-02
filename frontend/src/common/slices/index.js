@@ -12,3 +12,6 @@ export { default as signIn } from './signIn/reducer';
 export { default as useSignOut } from './signOut/useSignOut';
 export { default as signOutSaga } from './signOut/saga';
 export { default as signOut } from './signOut/reducer';
+
+export { default as useTheme } from './theme/useTheme';
+export { default as theme } from './theme/reducer';

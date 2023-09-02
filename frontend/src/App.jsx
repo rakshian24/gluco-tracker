@@ -21,7 +21,7 @@ import { appThemes } from './common/theme';
 // import ReadingDetails from './pages/readingDetails';
 import PageNotFoundAnimated from './components/PageNotFoundAnimated';
 import FallBackScreen from './components/fallbackScreen';
-import { useAuth } from './common/slices';
+import { useAuth, useTheme } from './common/slices';
 
 const AppWrapper = styled.div`
   height: 100vh;
@@ -54,11 +54,11 @@ const App = () => {
   const [screenWidth] = useWindowSize();
   const isTabScreen = screenWidth <= 1023;
   const [userInfo] = useAuth();
+  const [theme] = useTheme();
   // const hasUserInfo = userInfo && Object.keys(userInfo).length > 0;
-  // const { theme } = useSelector((state) => state.theme);
-
+  
   return (
-    <ThemeProvider theme={appThemes[themes.green]}>
+    <ThemeProvider theme={appThemes[theme]}>
       <AppWrapper>
         {!isTabScreen && <Header />}
         <StyledToastContainer />

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -7,7 +6,7 @@ import Logo from './Logo';
 import BlueDot from './BlueDot';
 import { BUTTON_TYPE, ROUTES, themes, themes_color_map } from '../constants';
 import { Button } from '../common/styled-components';
-import { useAuth } from '../common/slices';
+import { useAuth, useTheme } from '../common/slices';
 
 const { green, violet } = themes;
 const { TERTIARY } = BUTTON_TYPE;
@@ -59,26 +58,22 @@ const Header = () => {
   const [userInfo] = useAuth();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
-
-  // const handleOnThemeSelectorClick = (color) => {
-  //   dispatch(setTheme(color))
-  // }
+  const [, { setTheme }] = useTheme();
 
   return (
     <StyledHeader>
       <Logo title="Gluco Tracker" />
       <HeaderRightContainer>
-        {/* <ThemeSelectorContainer>
-          <ThemeSelector type={violet} onClick={() => handleOnThemeSelectorClick(violet)} />
-          <ThemeSelector type={green} onClick={() => handleOnThemeSelectorClick(green)} />
+        <ThemeSelectorContainer>
+          <ThemeSelector type={violet} onClick={() => setTheme(violet)} />
+          <ThemeSelector type={green} onClick={() => setTheme(green)} />
         </ThemeSelectorContainer>
         {userInfo && pathname !== CREATE_READING && <Button
           buttontype={TERTIARY}
           onClick={() => navigate(CREATE_READING)}
         >
           Add Reading
-        </Button>} */}
+        </Button>}
         {userInfo && <BlueDot userInfo={userInfo} />}
       </HeaderRightContainer>
     </StyledHeader>
