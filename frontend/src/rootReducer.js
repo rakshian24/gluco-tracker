@@ -7,7 +7,9 @@ import {
   theme,
   createReading,
   readings,
-  readingDetails
+  readingDetails,
+  createFood,
+  foods
 } from "./common/slices";
 
 export default combineReducers({
@@ -18,5 +20,7 @@ export default combineReducers({
   theme,
   createReading,
   readings,
-  readingDetails
+  readingDetails,
+  createFood,
+  foods
 });

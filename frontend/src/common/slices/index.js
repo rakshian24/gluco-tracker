@@ -27,3 +27,11 @@ export { default as readings } from './readings/reducer';
 export { default as useFetchReadingDetails } from './readingDetails/useFetchReadingDetails';
 export { default as fetchReadingDetailsSaga } from './readingDetails/saga';
 export { default as readingDetails } from './readingDetails/reducer';
+
+export { default as useCreateFood } from './createFood/useCreateFood';
+export { default as createFoodSaga } from './createFood/saga';
+export { default as createFood } from './createFood/reducer';
+
+export { default as useFetchFoods } from './foods/useFetchFoods';
+export { default as fetchFoodsSaga } from './foods/saga';
+export { default as foods } from './foods/reducer';
