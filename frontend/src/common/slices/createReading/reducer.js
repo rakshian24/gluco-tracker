@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { CREATE_READING_INIT, CREATE_READING_SUCCESS, CREATE_READING_ERROR } from './actions';
+import { CREATE_READING_INIT, CREATE_READING_SUCCESS, CREATE_READING_ERROR, RESET_CREATE_READING } from './actions';
 
 export const createReadingLoading = (state = null, { type }) => {
   switch (type) {
@@ -20,6 +20,8 @@ export const reading = (state = null, { type, payload }) => {
         ...state,
         ...payload
       }
+    case RESET_CREATE_READING:
+      return null
     default:
       return state;
   }

@@ -1,30 +1,31 @@
-import React from 'react';
-import { useCreateFoodMutation } from "../../slices/foodApiSlice";
+import React, { useEffect } from 'react';
+import CreatableSelect from 'react-select/creatable';
+
 import { StyledMultiBox } from './styles';
+import { useFetchFoods } from '../../common/slices';
+import LoadingSpinner from '../LoadingSpinner';
 
-const MultiSelectBox = ({ options, selected, setSelected, handleOnMultiSelectChange, handleMultiSelectError, triggerFetchFoods }) => {
-  const [createFood] = useCreateFoodMutation();
+const MultiSelectBox = ({ selectedMultiValue, handleOnMultiSelectInputChange, handleOnMultiSelectChange, handleOnCreateFood }) => {
+  const [foods, { fetchFoodsInit, isFetchFoodsLoading }] = useFetchFoods();
 
-  const handleOnCreate = async (query) => {
-    try {
-      const newItem = { value: query, label: query };
-      const newlyCreatedFood = await createFood({ ...newItem }).unwrap();
-      triggerFetchFoods();
-      setSelected({ ...selected, newlyCreatedFood })
-      return newlyCreatedFood;
+  useEffect(() => {
+    fetchFoodsInit()
+  }, [])
 
-    } catch (error) {
-      handleMultiSelectError(error)
-    }
+  if (isFetchFoodsLoading) {
+    return <LoadingSpinner />
   }
 
   return (
-    <StyledMultiBox
-      options={options}
-      value={selected}
+    <CreatableSelect
+      isMulti
+      getOptionLabel={e => e.label}
+      getOptionValue={e => e._id}
+      value={selectedMultiValue}
+      options={foods}
+      onInputChange={handleOnMultiSelectInputChange}
       onChange={handleOnMultiSelectChange}
-      isCreatable={true}
-      onCreateOption={handleOnCreate}
+      onCreateOption={handleOnCreateFood}
     />
   )
 }
