@@ -27,7 +27,7 @@ const Dashboard = () => {
   return (
     <DashboardContainer>
       <PageTitle>
-        Welcome, {userInfo?.name}!
+        Hi, {userInfo?.name}!
       </PageTitle>
       {!isArrayEmpty(readings) ? (<DashboardContentContainer>
         <ReadingList readings={readings} />
