@@ -4,6 +4,8 @@
 
 Authentication is provided by storing JWT in httpOnly cookies on signIn/signUp and clearing this coookie on signOut.
 
+### Project is hosted live [here](https://raksh-gluco-tracker.vercel.app/)
+
 ### References
 1. For svgs & icons -> https://www.freepik.com/search?file_type=svg&format=search&last_filter=file_type&last_value=svg 
 2. For animating svg -> https://app.svgator.com/ 
