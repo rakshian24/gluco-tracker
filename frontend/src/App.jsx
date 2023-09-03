@@ -11,12 +11,12 @@ import { StyledToastContainer } from './common/styled-components';
 import ProtectedRoute from './components/ProtectedRoute';
 // import Profile from './pages/profile/Profile';
 import CreateGlucoseReading from './pages/glucoseReading/components/create/CreateGlucoseReading';
-// import Footer from './components/footer/Footer';
+import Footer from './components/footer/Footer';
 import { useWindowSize } from './hooks/useWindowResize';
-// import GlucoseReadingLists from './pages/glucoseReading/components/list/GlucoseReadingLists';
-// import SignOut from './pages/signOut/SignOut';
-import { ROUTES, themes } from './constants';
-import { getSvgWidth, isStandAloneAndRunningOnIos16 } from './utils';
+import GlucoseReadingLists from './pages/glucoseReading/components/list/GlucoseReadingLists';
+import SignOut from './pages/signOut/SignOut';
+import { ROUTES } from './constants';
+import { getSvgWidth, isObjectEmpty, isStandAloneAndRunningOnIos16 } from './utils';
 import { appThemes } from './common/theme';
 import ReadingDetails from './pages/readingDetails';
 import PageNotFoundAnimated from './components/PageNotFoundAnimated';
@@ -48,14 +48,13 @@ const AppContainer = styled.div`
   }
 `;
 
-const { SIGN_UP, SIGN_IN, SIGN_OUT, DASHBOARD, PROFILE, CREATE_READING, LIST_READINGS, READING_DETAILS } = ROUTES;
+const { SIGN_UP, SIGN_IN, SIGN_OUT, DASHBOARD, CREATE_READING, LIST_READINGS, READING_DETAILS } = ROUTES;
 
 const App = () => {
   const [screenWidth] = useWindowSize();
   const isTabScreen = screenWidth <= 1023;
   const [userInfo] = useAuth();
   const [theme] = useTheme();
-  // const hasUserInfo = userInfo && Object.keys(userInfo).length > 0;
 
   return (
     <ThemeProvider theme={appThemes[theme]}>
@@ -75,11 +74,11 @@ const App = () => {
               <Route element={<Dashboard />} path={DASHBOARD} />
               {/* <Route element={<Profile />} path={PROFILE} /> */}
               <Route element={<CreateGlucoseReading />} path={CREATE_READING} />
-              {/* <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />*/}
+              <Route element={<GlucoseReadingLists />} path={LIST_READINGS} />
               <Route element={<ReadingDetails />} path={READING_DETAILS} />
 
               {/* This route is only for mobile screen */}
-              {/* {isTabScreen && <Route element={<SignOut />} path={SIGN_OUT} />} */}
+              {isTabScreen && <Route element={<SignOut />} path={SIGN_OUT} />}
             </Route>
 
             <Route path='*' element={(
@@ -94,7 +93,7 @@ const App = () => {
 
           </Routes>
         </AppContainer>
-        {/* {isTabScreen && hasUserInfo && < Footer />} */}
+        {isTabScreen && !isObjectEmpty(userInfo) && < Footer />}
       </AppWrapper>
     </ThemeProvider>
   )

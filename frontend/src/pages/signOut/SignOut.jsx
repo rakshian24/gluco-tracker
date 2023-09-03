@@ -1,11 +1,10 @@
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react'
 import { styled } from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Avatar from '../../components/Avatar';
-import { useSignOutMutation } from '../../slices/userApiSlice';
-import { clearCredentials } from '../../slices/authSlice';
+import { useAuth, useSignOut } from '../../common/slices';
+import { toast } from 'react-toastify';
 
 const SignOutPageContainer = styled.div`
   display: flex;
@@ -49,21 +48,17 @@ const SignOutButton = styled.button`
 `;
 
 const SignOut = () => {
-  const { userInfo } = useSelector((state) => state.auth);
+  const [userInfo] = useAuth();
+  const [{ signOutInit, signOutError }] = useSignOut();
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const [signOut] = useSignOutMutation();
-
-  const handleSignOut = async () => {
-    try {
-      await signOut().unwrap();
-      dispatch(clearCredentials());
-      navigate('/sign-in');
-    } catch (err) {
-      console.error(err);
+  useEffect(() => {
+    if (signOutError && typeof (signOutError) === 'string') {
+      toast.error(signOutError)
     }
+  }, [signOutError])
+
+  const handleSignOut = () => {
+    signOutInit()
   };
 
   return (
