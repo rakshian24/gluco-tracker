@@ -5,7 +5,9 @@ import {
   signOutSaga,
   createReadingSaga,
   fetchReadingsSaga,
-  fetchReadingDetailsSaga
+  fetchReadingDetailsSaga,
+  createFoodSaga,
+  fetchFoodsSaga
 } from './common/slices';
 
 export default function* rootSaga() {
@@ -15,4 +17,6 @@ export default function* rootSaga() {
   yield spawn(createReadingSaga);
   yield spawn(fetchReadingsSaga);
   yield spawn(fetchReadingDetailsSaga);
+  yield spawn(createFoodSaga);
+  yield spawn(fetchFoodsSaga);
 }
