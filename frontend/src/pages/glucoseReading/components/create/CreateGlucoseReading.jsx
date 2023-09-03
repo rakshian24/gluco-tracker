@@ -8,8 +8,8 @@ import SelectDropdown from '../../../../components/SelectDropdown';
 import { FormFooterContainer } from '../../../profile/styles';
 import LoadingSpinner from '../../../../components/LoadingSpinner';
 import { isArrayEmpty, isObjectEmpty, showConsumedFoodsTagBox, showIsMedsTakenCheckbox } from '../../../../utils';
-import { useCreateReading } from '../../../../common/slices';
-// import MultiSelectBox from '../../../../components/MultiSelectBox';
+import { useCreateFood, useCreateReading } from '../../../../common/slices';
+import MultiSelectBox from '../../../../components/MultiSelectBox';
 
 const defaultFormFields = {
   type: '',
@@ -24,17 +24,29 @@ const CreateGlucoseReading = () => {
   const [formError, setFormError] = useState({});
   const [isMedsTakenCheckBoxValue, setIsMedsTakenCheckBoxValue] = useState(null);
   const [isExercisedCheckBoxValue, setIsExercisedCheckBoxValue] = useState(false);
-  const [selectedMultiValue, setSelectedMultiValue] = useState([])
+  const [selectedMultiValue, setSelectedMultiValue] = useState([]);
+  const [, setMultiSelectInputVal] = useState('');
   const navigate = useNavigate();
 
-  const [newReading, { createReadingInit, isLoading, createReadingError }] = useCreateReading();
+  const [newReading, { createReadingInit, isLoading, createReadingError, resetCreateReading }] = useCreateReading();
+  const [newFood, { createFoodInit }] = useCreateFood();
 
+  //On successfull creation of food, appending the selectedMultiValue array with the newly created food
+  useEffect(() => {
+    if (!isObjectEmpty(newFood)) {
+      setSelectedMultiValue([...selectedMultiValue, newFood])
+    }
+  }, [newFood, setSelectedMultiValue])
+
+  //On successfull creation of reading, navigate the user to dashboard page
   useEffect(() => {
     if (!isObjectEmpty(newReading)) {
+      resetCreateReading()
       navigate(ROUTES.DASHBOARD);
     }
-  }, [newReading])
+  }, [newReading, navigate])
 
+  //To show error messages and toast on submit, in case of error
   useEffect(() => {
     if (createReadingError && typeof (createReadingError) === 'string') {
       toast.error(createReadingError)
@@ -82,12 +94,17 @@ const CreateGlucoseReading = () => {
     setSelectedValue(val);
   }
 
-  const handleOnMultiSelectChange = (selectedMultiVal) => {
-    setSelectedMultiValue(selectedMultiVal)
+  const handleOnMultiSelectInputChange = (value) => {
+    setMultiSelectInputVal(value)
   }
 
-  const handleMultiSelectError = (err) => {
-    setFormError({ ...formError, consumedFoods: err?.data?.message?.value })
+  const handleOnMultiSelectChange = (value) => {
+    setSelectedMultiValue(value)
+  }
+
+  const handleOnCreateFood = (query) => {
+    const newFoodObj = { value: query, label: query }
+    createFoodInit(newFoodObj);
   }
 
   if (isLoading) {
@@ -156,20 +173,18 @@ const CreateGlucoseReading = () => {
           <ErrorText>{formError.isExercised}</ErrorText>
         </FormItem>
 
-        {/* {showConsumedFoodsTagBox(selectedValue?.value) && (
+        {showConsumedFoodsTagBox(selectedValue?.value) && (
           <FormItem id="consumedFoods">
             <label>Foods consumed</label>
             <MultiSelectBox
-              options={[]}
-              selected={selectedMultiValue}
-              setSelected={setSelectedMultiValue}
+              selectedMultiValue={selectedMultiValue}
+              handleOnMultiSelectInputChange={handleOnMultiSelectInputChange}
               handleOnMultiSelectChange={handleOnMultiSelectChange}
-              handleMultiSelectError={handleMultiSelectError}
-              triggerFetchFoods={trigger}
+              handleOnCreateFood={handleOnCreateFood}
             />
             <ErrorText>{formError.consumedFoods}</ErrorText>
           </FormItem>
-        )} */}
+        )}
 
         <FormItem id="description">
           <label>Description</label>
